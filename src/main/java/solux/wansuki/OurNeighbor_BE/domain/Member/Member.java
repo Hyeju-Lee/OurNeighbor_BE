@@ -1,6 +1,9 @@
 package solux.wansuki.OurNeighbor_BE.domain.Member;
 
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,7 +16,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Getter
 @Entity
-public class Member {
+public class Member implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +36,8 @@ public class Member {
     @Builder.Default
     private List<String> roles = new ArrayList<>();
 
-/*
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles.stream()
@@ -43,7 +47,7 @@ public class Member {
 
     @Override
     public String getUsername() {
-        return email;
+        return loginId;
     }
 
     @Override
@@ -64,5 +68,5 @@ public class Member {
     @Override
     public boolean isEnabled() {
         return true;
-    }*/
+    }
 }
