@@ -29,21 +29,10 @@ public class Member {
 
     private String loginId;
 
-    /*@ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private List<String> roles = new ArrayList<>();
-*/
-    //public Member() { }
 
-    @Builder
-    public Member(String name, String nickName, String email, String password,String loginId/*, List<String> roles*/) {
-        this.name = name;
-        this.nickName = nickName;
-        this.email = email;
-        this.password = password;
-        this.loginId = loginId;
-       // this.roles = roles;
-    }
 /*
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

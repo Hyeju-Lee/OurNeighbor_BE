@@ -18,13 +18,13 @@ public class MemberSaveDto {
     private List<String> roles;
 
     @Builder
-    public MemberSaveDto(String name, String nickName, String email, String password, String loginId/*, List<String> roles*/) {
+    public MemberSaveDto(String name, String nickName, String email, String password, String loginId, List<String> roles) {
         this.name = name;
         this.nickName = nickName;
         this.email = email;
         this.password = password;
         this.loginId = loginId;
-        //this.roles = roles;
+        this.roles = roles;
     }
 
     public Member toEntity() {
@@ -34,7 +34,7 @@ public class MemberSaveDto {
                 .email(email)
                 .password(password)
                 .loginId(loginId)
-                //.roles(roles)
+                .roles(roles)
                 .build();
     }
 }

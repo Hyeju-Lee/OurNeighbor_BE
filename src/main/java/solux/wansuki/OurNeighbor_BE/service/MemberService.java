@@ -24,7 +24,7 @@ public class MemberService {
                 .email(memberSaveDto.getEmail())
                 .password(memberSaveDto.getPassword())
                 .loginId(memberSaveDto.getLoginId())
-                //.roles(Collections.singletonList("ROLE_USER"))
+                .roles(Collections.singletonList("ROLE_USER"))
                 .build();
         return memberRepository.save(member).getId();
     }
