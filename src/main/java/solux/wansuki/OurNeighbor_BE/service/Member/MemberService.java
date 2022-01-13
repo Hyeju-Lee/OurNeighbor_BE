@@ -7,10 +7,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import solux.wansuki.OurNeighbor_BE.Security.Jwt.JwtTokenProvider;
 import solux.wansuki.OurNeighbor_BE.domain.Member.Member;
 import solux.wansuki.OurNeighbor_BE.domain.Member.MemberRepository;
 import solux.wansuki.OurNeighbor_BE.dto.Member.LoginDto;
 import solux.wansuki.OurNeighbor_BE.dto.Member.MemberSaveDto;
+import solux.wansuki.OurNeighbor_BE.dto.Member.TokenInfoResponseDto;
 
 import java.util.Collections;
 import java.util.List;
@@ -21,6 +23,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Transactional
     public Long signUp(MemberSaveDto memberSaveDto) {
@@ -36,16 +39,18 @@ public class MemberService {
     }
 
     @Transactional
-    public Long login(LoginDto loginDto) {
+    public TokenInfoResponseDto login(LoginDto loginDto) {
         if (memberRepository.findByLoginId(loginDto.getLoginId()).orElse(null) == null) {
-            return 1l;
+            return null;
         }
 
         UsernamePasswordAuthenticationToken authenticationToken = loginDto.toAuthentication();
 
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
-        return memberRepository.findByLoginId(loginDto.getLoginId()).get().getId();
+        TokenInfoResponseDto tokenInfo = jwtTokenProvider.generateToken(authentication);
+
+        return tokenInfo;
     }
 
     public List<Member> findAll() {
