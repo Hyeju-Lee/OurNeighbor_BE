@@ -1,4 +1,4 @@
-package solux.wansuki.OurNeighbor_BE.service.Schedule;
+package solux.wansuki.OurNeighbor_BE.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
