@@ -16,7 +16,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends GenericFilterBean {
 
-    private static final String AUTHORIZATION_HEADER = "authorization";
+    private static final String AUTHORIZATION_HEADER = "Authorization";
     private static final String BEARER_TYPE = "Bearer";
 
     private final JwtTokenProvider jwtTokenProvider;

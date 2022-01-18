@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import solux.wansuki.OurNeighbor_BE.domain.Token.RefreshToken;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -36,7 +37,13 @@ public class Member implements UserDetails {
     @Builder.Default
     private List<String> roles = new ArrayList<>();
 
+    @OneToOne
+    @JoinColumn(name = "refreshToken_id")
+    private RefreshToken refreshToken;
 
+    public void update(RefreshToken refreshToken) {
+        this.refreshToken = refreshToken;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
