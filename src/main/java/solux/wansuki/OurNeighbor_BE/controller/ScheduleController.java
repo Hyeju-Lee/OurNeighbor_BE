@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import solux.wansuki.OurNeighbor_BE.domain.Schedule.Schedules;
 import solux.wansuki.OurNeighbor_BE.dto.Schedule.ScheduleSaveDto;
-import solux.wansuki.OurNeighbor_BE.service.Schedule.ScheduleService;
+import solux.wansuki.OurNeighbor_BE.service.ScheduleService;
 
 import java.util.List;
 
