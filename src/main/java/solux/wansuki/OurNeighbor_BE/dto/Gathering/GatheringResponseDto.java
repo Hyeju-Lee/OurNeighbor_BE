@@ -5,14 +5,14 @@ import solux.wansuki.OurNeighbor_BE.domain.posts.posts;
 
 @Getter
 
-public class GatheringDto {
+public class GatheringResponseDto {
 
     private Long id;
     private String title;
     private String content;
     private String category;
 
-    public GatheringDto(posts entity) {
+    public GatheringResponseDto(posts entity) {
         this.id = entity.getId();
         this.title = entity.getTitle();
         this.content = entity.getContent();

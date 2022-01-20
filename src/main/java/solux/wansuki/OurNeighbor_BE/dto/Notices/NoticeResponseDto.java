@@ -7,14 +7,14 @@ import solux.wansuki.OurNeighbor_BE.domain.posts.posts;
 
 @Getter
 
-public class NoticeDto {
+public class NoticeResponseDto {
 
-    private Long id;
+    //private Long id;
     private String title;
     private String content;
 
-    public NoticeDto(posts entity) {
-        this.id = entity.getId();
+    public NoticeResponseDto(posts entity) {
+        //this.id = entity.getId();
         this.title = entity.getTitle();
         this.content = entity.getContent();
     }
