@@ -13,6 +13,7 @@ public class RefreshToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "refreshToken_id")
     private Long id;
 
     @Column(nullable = false)

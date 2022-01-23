@@ -9,6 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import solux.wansuki.OurNeighbor_BE.Security.Jwt.JwtTokenProvider;
+import solux.wansuki.OurNeighbor_BE.domain.Apartment.Apartment;
+import solux.wansuki.OurNeighbor_BE.domain.Apartment.ApartmentRepository;
 import solux.wansuki.OurNeighbor_BE.domain.Member.Member;
 import solux.wansuki.OurNeighbor_BE.domain.Member.MemberRepository;
 import solux.wansuki.OurNeighbor_BE.domain.Token.RefreshToken;
@@ -29,18 +31,25 @@ public class MemberService {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final ApartmentRepository apartmentRepository;
 
     @Transactional
     public Long signUp(MemberSaveDto memberSaveDto) {
-        Member member = Member.builder()
+        Apartment apartment = Apartment.builder()
+                .apartName(memberSaveDto.getApartName()).build();
+        apartmentRepository.save(apartment);
+
+        MemberSaveDto member = MemberSaveDto.builder()
                 .name(memberSaveDto.getName())
                 .nickName(memberSaveDto.getNickName())
                 .email(memberSaveDto.getEmail())
                 .password(passwordEncoder.encode(memberSaveDto.getPassword()))
                 .loginId(memberSaveDto.getLoginId())
                 .roles(Collections.singletonList("ROLE_USER"))
+                .apartment(apartment)
                 .build();
-        return memberRepository.save(member).getId();
+
+        return memberRepository.save(member.toEntity()).getId();
     }
 
     @Transactional

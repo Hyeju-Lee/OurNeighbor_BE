@@ -1,9 +1,12 @@
 package solux.wansuki.OurNeighbor_BE.domain.Member;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import solux.wansuki.OurNeighbor_BE.domain.Apartment.Apartment;
 import solux.wansuki.OurNeighbor_BE.domain.Token.RefreshToken;
 
 import javax.persistence.*;
@@ -40,6 +43,10 @@ public class Member implements UserDetails {
     @OneToOne
     @JoinColumn(name = "refreshToken_id")
     private RefreshToken refreshToken;
+
+    @ManyToOne
+    @JoinColumn(name = "apart_id")
+    private Apartment apartment;
 
     public void update(RefreshToken refreshToken) {
         this.refreshToken = refreshToken;
