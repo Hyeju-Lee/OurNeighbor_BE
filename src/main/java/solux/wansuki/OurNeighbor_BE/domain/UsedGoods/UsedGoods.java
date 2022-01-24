@@ -3,11 +3,11 @@ package solux.wansuki.OurNeighbor_BE.domain.UsedGoods;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import solux.wansuki.OurNeighbor_BE.domain.Photo.Photo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -15,11 +15,15 @@ import javax.persistence.Id;
 public class UsedGoods {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "usedGoods_id")
     private Long id;
 
     private String title;
 
     private String content;
+
+    @OneToMany(mappedBy = "usedGoods")
+    private List<Photo> photos = new ArrayList<>();
 
     @Builder
     public UsedGoods(String title, String content) {
@@ -30,5 +34,12 @@ public class UsedGoods {
     public void update(String title, String content) {
         this.title = title;
         this.content = content;
+    }
+
+    public void addPhoto(Photo photo) {
+        this.photos.add(photo);
+
+        if (photo.getUsedGoods() != this)
+            photo.setUsedGoods(this);
     }
 }

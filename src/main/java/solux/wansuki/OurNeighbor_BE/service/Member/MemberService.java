@@ -67,7 +67,7 @@ public class MemberService {
                 .refreshTokenInfo(tokenInfo.getRefreshToken()).build();
         refreshTokenRepository.save(refreshToken);
 
-        member.update(refreshToken);
+        member.setRefreshToken(refreshToken);
 
         return tokenInfo;
     }
@@ -93,7 +93,7 @@ public class MemberService {
                 .refreshTokenInfo(responseDto.getRefreshToken()).build();
         refreshTokenRepository.save(token);
 
-        member.update(token);
+        member.setRefreshToken(token);
 
         return responseDto;
     }
