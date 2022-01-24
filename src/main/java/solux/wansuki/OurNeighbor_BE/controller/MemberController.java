@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import solux.wansuki.OurNeighbor_BE.domain.Member.Member;
 import solux.wansuki.OurNeighbor_BE.dto.Member.LoginDto;
 import solux.wansuki.OurNeighbor_BE.dto.Member.MemberSaveDto;
+import solux.wansuki.OurNeighbor_BE.dto.Member.ReissueRequestDto;
+import solux.wansuki.OurNeighbor_BE.dto.Member.TokenInfoResponseDto;
 import solux.wansuki.OurNeighbor_BE.service.Member.MemberService;
 
 import java.util.List;
@@ -23,7 +25,11 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public Long login(@RequestBody LoginDto loginDto) {return memberService.login(loginDto);}
+    public TokenInfoResponseDto login(@RequestBody LoginDto loginDto) {return memberService.login(loginDto);}
+
+    @PostMapping("/reissue")
+    public TokenInfoResponseDto reissue(@RequestBody ReissueRequestDto requestDto) {return memberService.reissue(requestDto);}
+
     @GetMapping("/member")
     public List<Member> findAll() {
         return memberService.findAll();
