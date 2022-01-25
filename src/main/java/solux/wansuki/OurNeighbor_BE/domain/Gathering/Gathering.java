@@ -14,7 +14,6 @@ import javax.persistence.Id;
 @Getter
 @NoArgsConstructor
 @Entity
-//public class Gathering extends BaseTimeEntity {
 public class Gathering {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,9 +36,5 @@ public class Gathering {
         this.content = content;
         this.category = category;
     }
-
-    //public static void main(String[] args) {
-
-    //}
 
 }
