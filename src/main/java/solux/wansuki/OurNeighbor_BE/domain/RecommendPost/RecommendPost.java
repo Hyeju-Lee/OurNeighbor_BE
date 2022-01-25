@@ -14,7 +14,6 @@ import javax.persistence.Id;
 @Getter
 @NoArgsConstructor
 @Entity
-//public class Gathering extends BaseTimeEntity {
 public class RecommendPost {
 
     @Id
@@ -38,10 +37,5 @@ public class RecommendPost {
         this.content = content;
         this.category = category;
     }
-
-    //public static void main(String[] args) {
-
-    //}
-
 
 }
