@@ -1,7 +1,5 @@
 package solux.wansuki.OurNeighbor_BE.domain.Member;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -48,7 +46,7 @@ public class Member implements UserDetails {
     @JoinColumn(name = "apart_id")
     private Apartment apartment;
 
-    public void update(RefreshToken refreshToken) {
+    public void setRefreshToken(RefreshToken refreshToken) {
         this.refreshToken = refreshToken;
     }
 
