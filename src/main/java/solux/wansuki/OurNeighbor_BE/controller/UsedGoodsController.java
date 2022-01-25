@@ -9,6 +9,7 @@ import solux.wansuki.OurNeighbor_BE.service.UsedGoodsService;
 
 import java.util.List;
 
+@CrossOrigin
 @RequiredArgsConstructor
 @RestController
 public class UsedGoodsController {

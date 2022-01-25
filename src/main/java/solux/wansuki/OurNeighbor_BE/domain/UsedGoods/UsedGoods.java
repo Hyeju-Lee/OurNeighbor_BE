@@ -22,7 +22,11 @@ public class UsedGoods {
 
     private String content;
 
-    @OneToMany(mappedBy = "usedGoods")
+    @OneToMany(
+            mappedBy = "usedGoods",
+            cascade = CascadeType.REMOVE,
+            orphanRemoval = true
+    )
     private List<Photo> photos = new ArrayList<>();
 
     @Builder

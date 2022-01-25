@@ -39,6 +39,9 @@ public class Photo {
     }
 
     public void setUsedGoods(UsedGoods usedGoods) {
+        if (this.usedGoods != null) {
+            this.usedGoods.getPhotos().remove(this);
+        }
         this.usedGoods = usedGoods;
         //무한 루프 빠지지 않도록
         if (!usedGoods.getPhotos().contains(this))
