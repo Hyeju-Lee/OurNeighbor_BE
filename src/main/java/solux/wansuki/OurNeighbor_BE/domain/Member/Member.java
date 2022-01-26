@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import solux.wansuki.OurNeighbor_BE.domain.Apartment.Apartment;
+import solux.wansuki.OurNeighbor_BE.domain.Comment.Comment;
 import solux.wansuki.OurNeighbor_BE.domain.Token.RefreshToken;
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class Member implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_id")
     private Long id;
 
     private String name;
@@ -45,6 +47,16 @@ public class Member implements UserDetails {
     @ManyToOne
     @JoinColumn(name = "apart_id")
     private Apartment apartment;
+
+    @OneToMany(mappedBy = "member")
+    private List<Comment> comments = new ArrayList<>();
+
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
+        if (comment.getMember() != this)
+            comment.setMember(this);
+    }
+
 
     public void setRefreshToken(RefreshToken refreshToken) {
         this.refreshToken = refreshToken;
