@@ -22,7 +22,7 @@ public class ScheduleController {
         return scheduleService.save(saveDto);
     }
 
-    @GetMapping("/find/schedules")
+    @GetMapping("/schedules")
     public List<Schedules> findAll() {
         return scheduleService.findAll();
     }

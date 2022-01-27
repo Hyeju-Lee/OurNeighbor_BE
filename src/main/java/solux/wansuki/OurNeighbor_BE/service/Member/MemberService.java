@@ -20,6 +20,7 @@ import solux.wansuki.OurNeighbor_BE.dto.Member.MemberSaveDto;
 import solux.wansuki.OurNeighbor_BE.dto.Member.ReissueRequestDto;
 import solux.wansuki.OurNeighbor_BE.dto.Member.TokenInfoResponseDto;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,18 +39,23 @@ public class MemberService {
         Apartment apartment = Apartment.builder()
                 .apartName(memberSaveDto.getApartName()).build();
         apartmentRepository.save(apartment);
+        List<String> roles = null;
+        if (memberSaveDto.getRoles().equals("user"))
+            roles = Collections.singletonList("ROLE_USER");
+        else if (memberSaveDto.getRoles().equals("admin"))
+            roles = Collections.singletonList("ROLE_ADMIN");
 
-        MemberSaveDto member = MemberSaveDto.builder()
+        Member member = Member.builder()
                 .name(memberSaveDto.getName())
                 .nickName(memberSaveDto.getNickName())
                 .email(memberSaveDto.getEmail())
                 .password(passwordEncoder.encode(memberSaveDto.getPassword()))
                 .loginId(memberSaveDto.getLoginId())
-                .roles(Collections.singletonList("ROLE_USER"))
+                .roles(roles)
                 .apartment(apartment)
                 .build();
 
-        return memberRepository.save(member.toEntity()).getId();
+        return memberRepository.save(member).getId();
     }
 
     @Transactional
