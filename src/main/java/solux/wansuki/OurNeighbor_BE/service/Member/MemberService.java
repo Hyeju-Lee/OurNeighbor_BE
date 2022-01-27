@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,10 +16,7 @@ import solux.wansuki.OurNeighbor_BE.domain.Member.Member;
 import solux.wansuki.OurNeighbor_BE.domain.Member.MemberRepository;
 import solux.wansuki.OurNeighbor_BE.domain.Token.RefreshToken;
 import solux.wansuki.OurNeighbor_BE.domain.Token.RefreshTokenRepository;
-import solux.wansuki.OurNeighbor_BE.dto.Member.LoginDto;
-import solux.wansuki.OurNeighbor_BE.dto.Member.MemberSaveDto;
-import solux.wansuki.OurNeighbor_BE.dto.Member.ReissueRequestDto;
-import solux.wansuki.OurNeighbor_BE.dto.Member.TokenInfoResponseDto;
+import solux.wansuki.OurNeighbor_BE.dto.Member.*;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -104,7 +102,33 @@ public class MemberService {
         return responseDto;
     }
 
+    public String isLoginIdPresent(String loginId) {
+        if (memberRepository.findByLoginId(loginId).isPresent())
+            return "present";
+        else
+            return "not present";
+    }
+
     public List<Member> findAll() {
         return memberRepository.findAll();
+    }
+
+    public MemberResponseDto findById(User user) {
+        Member member = memberRepository.findByLoginId(user.getUsername()).orElseThrow();
+        List<String> roles = member.getRoles();
+        String role = null;
+        if (roles.contains("ROLE_ADMIN"))
+            role = "관리자";
+        else if (roles.contains("ROLE_USER"))
+            role = "주민";
+        MemberResponseDto responseDto = MemberResponseDto.builder()
+                .name(member.getName())
+                .email(member.getEmail())
+                .nickName(member.getNickName())
+                .role(role)
+                .loginId(member.getLoginId())
+                .apartName(member.getApartment().getApartName())
+                .build();
+        return responseDto;
     }
 }
