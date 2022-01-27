@@ -34,9 +34,14 @@ public class MemberService {
 
     @Transactional
     public Long signUp(MemberSaveDto memberSaveDto) {
-        Apartment apartment = Apartment.builder()
-                .apartName(memberSaveDto.getApartName()).build();
-        apartmentRepository.save(apartment);
+        Apartment apartment;
+        if (apartmentRepository.findByApartName(memberSaveDto.getApartName()).isPresent())
+            apartment = apartmentRepository.findByApartName(memberSaveDto.getApartName()).orElseThrow();
+        else {
+            apartment = Apartment.builder()
+                    .apartName(memberSaveDto.getApartName()).build();
+            apartmentRepository.save(apartment);
+        }
         List<String> roles = null;
         if (memberSaveDto.getRoles().equals("user"))
             roles = Collections.singletonList("ROLE_USER");
