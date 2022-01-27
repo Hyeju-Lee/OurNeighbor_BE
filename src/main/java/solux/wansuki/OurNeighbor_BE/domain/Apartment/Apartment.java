@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import solux.wansuki.OurNeighbor_BE.domain.Member.Member;
+import solux.wansuki.OurNeighbor_BE.domain.Schedule.Schedules;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -26,8 +27,17 @@ public class Apartment {
     @OneToMany(mappedBy = "apartment")
     private List<Member> members = new ArrayList<>();
 
+    @OneToMany(mappedBy = "apartment")
+    private List<Schedules> schedules = new ArrayList<>();
+
     @Builder
     public Apartment (String apartName) {
         this.apartName = apartName;
+    }
+
+    public void addSchedules(Schedules schedules) {
+        this.schedules.add(schedules);
+        if (schedules.getApartment() != this)
+            schedules.setApartment(this);
     }
 }
