@@ -19,7 +19,7 @@ public class UsedGoodsController {
     //@PostMapping("/usedGoods")
     //public Long save(@RequestBody UsedGoodsSaveDto saveDto) {return usedGoodsService.save(saveDto);}
 
-    @PostMapping("/usedGoods")
+    @PostMapping("/used-goods")
     public Long save(
             @RequestParam(value = "file", required = false) List<MultipartFile> files,
             @RequestParam("title") String title,
@@ -32,12 +32,12 @@ public class UsedGoodsController {
         return usedGoodsService.save(saveDto, files);
     }
 
-    @PutMapping("/usedGoods/{usedGoods_id}")
+    @PutMapping("/used-goods/{usedGoods_id}")
     public Long update(@PathVariable Long usedGoods_id, @RequestBody UsedGoodsSaveDto saveDto) {
         return usedGoodsService.update(usedGoods_id, saveDto);
     }
 
-    @GetMapping("/usedGoods")
+    @GetMapping("/used-goods")
     public List<UsedGoods> findAll() {
         return usedGoodsService.findAll();
     }
