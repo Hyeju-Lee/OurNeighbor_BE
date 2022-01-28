@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface CommentRepository extends JpaRepository<Comment,Long> {
     List<Comment> findByGatheringId(Long gatheringId);
+    List<Comment> findByRecommendPostId(Long recommendPostId);
+    List<Comment> findByUsedGoodsId(Long usedGoodsId);
 }

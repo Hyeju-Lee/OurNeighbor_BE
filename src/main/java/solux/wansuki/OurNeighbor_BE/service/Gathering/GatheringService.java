@@ -34,7 +34,6 @@ public class GatheringService {
         return gatheringRepository.save(saveDto.toEntity()).getId();
     }
 
-    @Transactional
     public List<CommentResponseDto> getComment(Long id) {
         List<CommentResponseDto> responseDtos = new ArrayList<>();
         List<Comment> comments = commentRepository.findByGatheringId(id);

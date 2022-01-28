@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import solux.wansuki.OurNeighbor_BE.domain.UsedGoods.UsedGoods;
+import solux.wansuki.OurNeighbor_BE.dto.Comment.CommentResponseDto;
 import solux.wansuki.OurNeighbor_BE.dto.UsedGoods.UsedGoodsSaveDto;
 import solux.wansuki.OurNeighbor_BE.service.UsedGoodsService;
 
@@ -35,6 +36,11 @@ public class UsedGoodsController {
     @PutMapping("/used-goods/{usedGoods_id}")
     public Long update(@PathVariable Long usedGoods_id, @RequestBody UsedGoodsSaveDto saveDto) {
         return usedGoodsService.update(usedGoods_id, saveDto);
+    }
+
+    @GetMapping("/used-goods/comments/{id}")
+    public List<CommentResponseDto> getComments(@PathVariable Long id) {
+        return usedGoodsService.getComments(id);
     }
 
     @GetMapping("/used-goods")

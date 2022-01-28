@@ -3,6 +3,7 @@ package solux.wansuki.OurNeighbor_BE.domain.UsedGoods;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import solux.wansuki.OurNeighbor_BE.domain.Comment.Comment;
 import solux.wansuki.OurNeighbor_BE.domain.Photo.Photo;
 
 import javax.persistence.*;
@@ -29,6 +30,9 @@ public class UsedGoods {
     )
     private List<Photo> photos = new ArrayList<>();
 
+    @OneToMany(mappedBy = "recommendPost")
+    private List<Comment> comments;
+
     @Builder
     public UsedGoods(String title, String content) {
         this.title = title;
@@ -45,5 +49,11 @@ public class UsedGoods {
 
         if (photo.getUsedGoods() != this)
             photo.setUsedGoods(this);
+    }
+
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
+        if (comment.getUsedGoods() != this)
+            comment.setUsedGoods(this);
     }
 }
