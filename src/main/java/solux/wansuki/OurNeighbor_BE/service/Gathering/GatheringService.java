@@ -3,10 +3,14 @@ package solux.wansuki.OurNeighbor_BE.service.Gathering;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+import solux.wansuki.OurNeighbor_BE.FileHandler;
 import solux.wansuki.OurNeighbor_BE.domain.Comment.Comment;
 import solux.wansuki.OurNeighbor_BE.domain.Comment.CommentRepository;
 import solux.wansuki.OurNeighbor_BE.domain.Gathering.Gathering;
 import solux.wansuki.OurNeighbor_BE.domain.Gathering.GatheringRepository;
+import solux.wansuki.OurNeighbor_BE.domain.Photo.Photo;
+import solux.wansuki.OurNeighbor_BE.domain.Photo.PhotoRepository;
 import solux.wansuki.OurNeighbor_BE.dto.Comment.CommentResponseDto;
 import solux.wansuki.OurNeighbor_BE.dto.Gathering.GatheringResponseDto;
 import solux.wansuki.OurNeighbor_BE.dto.Gathering.GatheringSaveDto;
@@ -21,6 +25,8 @@ import java.util.List;
 public class GatheringService {
     private final GatheringRepository gatheringRepository;
     private final CommentRepository commentRepository;
+    private final PhotoRepository photoRepository;
+    private final FileHandler fileHandler;
 
     @Transactional
     public Long update(Long id, GatheringUpdateDto requestDto) {
@@ -30,8 +36,15 @@ public class GatheringService {
     }
 
     @Transactional
-    public Long save(GatheringSaveDto saveDto) {
-        return gatheringRepository.save(saveDto.toEntity()).getId();
+    public Long save(GatheringSaveDto saveDto, List<MultipartFile> files) throws Exception{
+        Gathering gathering = saveDto.toEntity();
+        List<Photo> photoList = fileHandler.parseFileInfo(files);
+        if (!photoList.isEmpty()) {
+            for (Photo photo : photoList) {
+                gathering.addPhoto(photoRepository.save(photo));
+            }
+        }
+        return gatheringRepository.save(gathering).getId();
     }
 
     public List<CommentResponseDto> getComment(Long id) {

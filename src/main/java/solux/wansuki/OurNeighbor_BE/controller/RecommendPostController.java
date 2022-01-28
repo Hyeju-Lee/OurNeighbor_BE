@@ -2,6 +2,7 @@ package solux.wansuki.OurNeighbor_BE.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import solux.wansuki.OurNeighbor_BE.dto.Comment.CommentResponseDto;
 import solux.wansuki.OurNeighbor_BE.dto.Gathering.GatheringSaveDto;
 import solux.wansuki.OurNeighbor_BE.dto.Gathering.GatheringUpdateDto;
@@ -19,8 +20,18 @@ public class RecommendPostController {
     private final RecommendPostService recommendPostService;
 
     @PostMapping("/recommend-posts")
-    public Long save(@RequestBody RecommendPostSaveDto saveDto) {
-        return recommendPostService.save(saveDto);
+    public Long save(
+            @RequestParam(value = "file", required = false) List<MultipartFile> files,
+            @RequestParam("title") String title,
+            @RequestParam(value = "content", required = false) String content,
+            @RequestParam("category") String category
+    ) throws Exception {
+        RecommendPostSaveDto saveDto = RecommendPostSaveDto.builder()
+                .title(title)
+                .content(content)
+                .category(category)
+                .build();
+        return recommendPostService.save(saveDto, files);
     }
 
     @PutMapping("/recommend-posts")

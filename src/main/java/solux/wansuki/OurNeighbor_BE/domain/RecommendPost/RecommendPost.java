@@ -4,9 +4,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import solux.wansuki.OurNeighbor_BE.domain.Comment.Comment;
+import solux.wansuki.OurNeighbor_BE.domain.Photo.Photo;
 //import solux.wansuki.OurNeighbor_BE.domain.BaseTimeEntity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -27,6 +29,13 @@ public class RecommendPost {
     @OneToMany(mappedBy = "recommendPost")
     private List<Comment> comments;
 
+    @OneToMany(
+            mappedBy = "recommendPost",
+            cascade = CascadeType.REMOVE,
+            orphanRemoval = true
+    )
+    private List<Photo> photos = new ArrayList<>();
+
     @Builder
     public RecommendPost (String title, String content, String category) {
         this.title = title;
@@ -38,6 +47,13 @@ public class RecommendPost {
         this.comments.add(comment);
         if (comment.getRecommendPost() != this)
             comment.setRecommendPost(this);
+    }
+
+    public void addPhoto(Photo photo) {
+        this.photos.add(photo);
+
+        if (photo.getRecommendPost() != this)
+            photo.setRecommendPost(this);
     }
 
     public void update(String title, String content, String category) {

@@ -3,14 +3,20 @@ package solux.wansuki.OurNeighbor_BE.service.RecommendPost;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+import solux.wansuki.OurNeighbor_BE.FileHandler;
 import solux.wansuki.OurNeighbor_BE.domain.Comment.Comment;
 import solux.wansuki.OurNeighbor_BE.domain.Comment.CommentRepository;
+import solux.wansuki.OurNeighbor_BE.domain.Photo.Photo;
+import solux.wansuki.OurNeighbor_BE.domain.Photo.PhotoRepository;
 import solux.wansuki.OurNeighbor_BE.domain.RecommendPost.RecommendPost;
 import solux.wansuki.OurNeighbor_BE.domain.RecommendPost.RecommendPostRepository;
+import solux.wansuki.OurNeighbor_BE.domain.UsedGoods.UsedGoods;
 import solux.wansuki.OurNeighbor_BE.dto.Comment.CommentResponseDto;
 import solux.wansuki.OurNeighbor_BE.dto.RecommendPost.RecommendPostResponseDto;
 import solux.wansuki.OurNeighbor_BE.dto.RecommendPost.RecommendPostSaveDto;
 import solux.wansuki.OurNeighbor_BE.dto.RecommendPost.RecommendPostUpdateDto;
+import solux.wansuki.OurNeighbor_BE.dto.UsedGoods.UsedGoodsSaveDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +26,8 @@ import java.util.List;
 public class RecommendPostService {
     private final RecommendPostRepository recommendPostRepository;
     private final CommentRepository commentRepository;
+    private final FileHandler fileHandler;
+    private final PhotoRepository photoRepository;
 
     @Transactional
     public Long update(Long id, RecommendPostUpdateDto requestDto) {
@@ -30,8 +38,15 @@ public class RecommendPostService {
         return id;
     }
 
-    public Long save(RecommendPostSaveDto saveDto) {
-        return recommendPostRepository.save(saveDto.toEntity()).getId();
+    @Transactional
+    public Long save(RecommendPostSaveDto saveDto, List<MultipartFile> files) throws Exception{
+        RecommendPost recommendPost = saveDto.toEntity();
+        List<Photo> photoList = fileHandler.parseFileInfo(files);
+        if (!photoList.isEmpty()) {
+            for (Photo photo : photoList)
+                recommendPost.addPhoto(photoRepository.save(photo));
+        }
+        return recommendPostRepository.save(recommendPost).getId();
     }
 
     public List<CommentResponseDto> getComments(Long id) {

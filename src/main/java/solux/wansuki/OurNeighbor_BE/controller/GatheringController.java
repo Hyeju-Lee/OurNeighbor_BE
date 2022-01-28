@@ -2,6 +2,7 @@ package solux.wansuki.OurNeighbor_BE.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import solux.wansuki.OurNeighbor_BE.domain.Comment.Comment;
 import solux.wansuki.OurNeighbor_BE.domain.Gathering.Gathering;
 import solux.wansuki.OurNeighbor_BE.dto.Comment.CommentResponseDto;
@@ -22,8 +23,18 @@ public class GatheringController {
     private final GatheringService gatheringService;
 
     @PostMapping("/gathering")
-    public Long save(@RequestBody GatheringSaveDto saveDto) {
-        return gatheringService.save(saveDto);
+    public Long save(
+            @RequestParam(value = "file", required = false) List<MultipartFile> files,
+            @RequestParam("title") String title,
+            @RequestParam(value = "content", required = false) String content,
+            @RequestParam("category") String category
+            ) throws Exception {
+        GatheringSaveDto saveDto = GatheringSaveDto.builder()
+                .title(title)
+                .content(content)
+                .category(category)
+                .build();
+        return gatheringService.save(saveDto, files);
     }
 
     @PutMapping("/gathering")

@@ -4,9 +4,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import solux.wansuki.OurNeighbor_BE.domain.Comment.Comment;
+import solux.wansuki.OurNeighbor_BE.domain.Photo.Photo;
 //import solux.wansuki.OurNeighbor_BE.domain.BaseTimeEntity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -26,6 +28,13 @@ public class Gathering {
     @OneToMany(mappedBy = "gathering")
     private List<Comment> comments;
 
+    @OneToMany(
+            mappedBy = "gathering",
+            cascade = CascadeType.REMOVE,
+            orphanRemoval = true
+    )
+    private List<Photo> photos = new ArrayList<>();
+
     @Builder
     public Gathering (String title, String content, String category) {
         this.title = title;
@@ -37,6 +46,13 @@ public class Gathering {
         this.comments.add(comment);
         if (comment.getGathering() != this)
             comment.setGathering(this);
+    }
+
+    public void addPhoto(Photo photo) {
+        this.photos.add(photo);
+
+        if (photo.getGathering() != this)
+            photo.setGathering(this);
     }
 
     public void update(String title, String content, String category) {
