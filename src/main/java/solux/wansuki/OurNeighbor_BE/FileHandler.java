@@ -17,8 +17,6 @@ public class FileHandler {
 
     public List<Photo> parseFileInfo(List<MultipartFile> multipartFiles) throws Exception {
         List<Photo> fileList = new ArrayList<>();
-        if (multipartFiles.isEmpty())
-            return fileList;
 
         if (!CollectionUtils.isEmpty(multipartFiles)) {
             LocalDateTime now = LocalDateTime.now();
