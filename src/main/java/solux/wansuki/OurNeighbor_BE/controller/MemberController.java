@@ -41,4 +41,7 @@ public class MemberController {
     public MemberResponseDto findById(@AuthenticationPrincipal User user) {
         return memberService.findById(user);
     }
+
+    @DeleteMapping("/member/{id}")
+    public void delete(@PathVariable Long id) {memberService.delete(id);}
 }

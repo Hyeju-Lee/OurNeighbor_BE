@@ -136,4 +136,9 @@ public class MemberService {
                 .build();
         return responseDto;
     }
+
+    @Transactional
+    public void delete(Long id) {
+        memberRepository.deleteById(id);
+    }
 }

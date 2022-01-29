@@ -23,11 +23,12 @@ public class Apartment {
 
     private String apartName;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "apartment")
+
+    @OneToMany(mappedBy = "apartment", cascade = {CascadeType.ALL}, orphanRemoval = true)
     private List<Member> members = new ArrayList<>();
 
-    @OneToMany(mappedBy = "apartment")
+    @JsonIgnore
+    @OneToMany(mappedBy = "apartment", cascade = {CascadeType.ALL}, orphanRemoval = true)
     private List<Schedules> schedules = new ArrayList<>();
 
     @Builder

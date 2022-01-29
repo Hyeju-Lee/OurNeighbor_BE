@@ -50,4 +50,9 @@ public class ScheduleService {
     public List<Schedules> findAll() {
         return scheduleRepository.findAll();
     }
+
+    @Transactional
+    public void deleteById(Long id) {
+        scheduleRepository.deleteById(id);
+    }
 }

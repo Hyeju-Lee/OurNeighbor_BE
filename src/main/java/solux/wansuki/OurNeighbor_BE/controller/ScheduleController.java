@@ -33,4 +33,9 @@ public class ScheduleController {
     public List<Schedules> findAll() {
         return scheduleService.findAll();
     }
+
+    @DeleteMapping("/schedules/{id}")
+    public void delete(@PathVariable Long id) {
+        scheduleService.deleteById(id);
+    }
 }
