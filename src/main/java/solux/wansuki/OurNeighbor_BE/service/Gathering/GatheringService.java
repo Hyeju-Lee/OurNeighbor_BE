@@ -1,6 +1,7 @@
 package solux.wansuki.OurNeighbor_BE.service.Gathering;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,6 +10,8 @@ import solux.wansuki.OurNeighbor_BE.domain.Comment.Comment;
 import solux.wansuki.OurNeighbor_BE.domain.Comment.CommentRepository;
 import solux.wansuki.OurNeighbor_BE.domain.Gathering.Gathering;
 import solux.wansuki.OurNeighbor_BE.domain.Gathering.GatheringRepository;
+import solux.wansuki.OurNeighbor_BE.domain.Member.Member;
+import solux.wansuki.OurNeighbor_BE.domain.Member.MemberRepository;
 import solux.wansuki.OurNeighbor_BE.domain.Photo.Photo;
 import solux.wansuki.OurNeighbor_BE.domain.Photo.PhotoRepository;
 import solux.wansuki.OurNeighbor_BE.domain.UsedGoods.UsedGoods;
@@ -29,6 +32,7 @@ public class GatheringService {
     private final CommentRepository commentRepository;
     private final PhotoRepository photoRepository;
     private final FileHandler fileHandler;
+    private final MemberRepository memberRepository;
 
     @Transactional
     public Long update(Long id, GatheringUpdateDto requestDto) {
@@ -38,7 +42,8 @@ public class GatheringService {
     }
 
     @Transactional
-    public Long save(GatheringSaveDto saveDto, List<MultipartFile> files) throws Exception{
+    public Long save(GatheringSaveDto saveDto, List<MultipartFile> files, User user) throws Exception{
+        Member member = memberRepository.findByLoginId(user.getUsername()).orElseThrow();
         Gathering gathering = saveDto.toEntity();
         List<Photo> photoList = fileHandler.parseFileInfo(files);
         if (!photoList.isEmpty()) {
@@ -46,7 +51,9 @@ public class GatheringService {
                 gathering.addPhoto(photoRepository.save(photo));
             }
         }
-        return gatheringRepository.save(gathering).getId();
+        Long id = gatheringRepository.save(gathering).getId();
+        member.addGathering(gatheringRepository.findById(id).orElseThrow());
+        return id;
     }
 
     public List<CommentResponseDto> getComment(Long id) {
@@ -72,6 +79,7 @@ public class GatheringService {
         }
         GatheringResponseDto responseDto = GatheringResponseDto.builder()
                 .id(gathering.getId())
+                .author(gathering.getMember().getNickName())
                 .title(gathering.getTitle())
                 .content(gathering.getContent())
                 .category(gathering.getCategory())

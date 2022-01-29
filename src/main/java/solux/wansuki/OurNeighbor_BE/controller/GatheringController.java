@@ -1,6 +1,8 @@
 package solux.wansuki.OurNeighbor_BE.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import solux.wansuki.OurNeighbor_BE.domain.Comment.Comment;
@@ -28,14 +30,15 @@ public class GatheringController {
             @RequestParam(value = "file", required = false) List<MultipartFile> files,
             @RequestParam("title") String title,
             @RequestParam(value = "content", required = false) String content,
-            @RequestParam("category") String category
+            @RequestParam("category") String category,
+            @AuthenticationPrincipal User user
             ) throws Exception {
         GatheringSaveDto saveDto = GatheringSaveDto.builder()
                 .title(title)
                 .content(content)
                 .category(category)
                 .build();
-        return gatheringService.save(saveDto, files);
+        return gatheringService.save(saveDto, files, user);
     }
 
     @PutMapping("/gathering")

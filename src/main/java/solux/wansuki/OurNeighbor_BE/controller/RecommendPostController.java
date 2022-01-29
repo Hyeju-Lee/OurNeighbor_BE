@@ -1,6 +1,8 @@
 package solux.wansuki.OurNeighbor_BE.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import solux.wansuki.OurNeighbor_BE.dto.Comment.CommentResponseDto;
@@ -25,14 +27,15 @@ public class RecommendPostController {
             @RequestParam(value = "file", required = false) List<MultipartFile> files,
             @RequestParam("title") String title,
             @RequestParam(value = "content", required = false) String content,
-            @RequestParam("category") String category
-    ) throws Exception {
+            @RequestParam("category") String category,
+            @AuthenticationPrincipal User user
+            ) throws Exception {
         RecommendPostSaveDto saveDto = RecommendPostSaveDto.builder()
                 .title(title)
                 .content(content)
                 .category(category)
                 .build();
-        return recommendPostService.save(saveDto, files);
+        return recommendPostService.save(saveDto, files, user);
     }
 
     @PutMapping("/recommend-posts")

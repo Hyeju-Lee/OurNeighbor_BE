@@ -1,12 +1,15 @@
 package solux.wansuki.OurNeighbor_BE.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import solux.wansuki.OurNeighbor_BE.FileHandler;
 import solux.wansuki.OurNeighbor_BE.domain.Comment.Comment;
 import solux.wansuki.OurNeighbor_BE.domain.Comment.CommentRepository;
+import solux.wansuki.OurNeighbor_BE.domain.Member.Member;
+import solux.wansuki.OurNeighbor_BE.domain.Member.MemberRepository;
 import solux.wansuki.OurNeighbor_BE.domain.Photo.Photo;
 import solux.wansuki.OurNeighbor_BE.domain.Photo.PhotoRepository;
 import solux.wansuki.OurNeighbor_BE.domain.UsedGoods.UsedGoods;
@@ -25,19 +28,23 @@ public class UsedGoodsService {
     private final PhotoRepository photoRepository;
     private final FileHandler fileHandler;
     private final CommentRepository commentRepository;
+    private final MemberRepository memberRepository;
 
     //@Transactional
     //public Long save(UsedGoodsSaveDto saveDto) { return usedGoodsRepository.save(saveDto.toEntity()).getId();}
 
     @Transactional
-    public Long save(UsedGoodsSaveDto saveDto, List<MultipartFile> files) throws Exception{
+    public Long save(UsedGoodsSaveDto saveDto, List<MultipartFile> files, User user) throws Exception{
+        Member member = memberRepository.findByLoginId(user.getUsername()).orElseThrow();
         UsedGoods usedGoods = saveDto.toEntity();
         List<Photo> photoList = fileHandler.parseFileInfo(files);
         if (!photoList.isEmpty()) {
             for (Photo photo : photoList)
                 usedGoods.addPhoto(photoRepository.save(photo));
         }
-        return usedGoodsRepository.save(usedGoods).getId();
+        Long id = usedGoodsRepository.save(usedGoods).getId();
+        member.addUsedGoods(usedGoodsRepository.findById(id).orElseThrow());
+        return id;
     }
 
     @Transactional
@@ -74,6 +81,7 @@ public class UsedGoodsService {
                 .title(usedGoods.getTitle())
                 .content(usedGoods.getContent())
                 .photoId(photoIds)
+                .author(usedGoods.getMember().getNickName())
                 .build();
         return responseDto;
     }

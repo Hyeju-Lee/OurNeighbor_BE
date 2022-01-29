@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import solux.wansuki.OurNeighbor_BE.domain.Comment.Comment;
+import solux.wansuki.OurNeighbor_BE.domain.Member.Member;
 import solux.wansuki.OurNeighbor_BE.domain.Photo.Photo;
 
 import javax.persistence.*;
@@ -33,6 +34,10 @@ public class UsedGoods {
     @OneToMany(mappedBy = "recommendPost")
     private List<Comment> comments;
 
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
     @Builder
     public UsedGoods(String title, String content) {
         this.title = title;
@@ -55,5 +60,13 @@ public class UsedGoods {
         this.comments.add(comment);
         if (comment.getUsedGoods() != this)
             comment.setUsedGoods(this);
+    }
+
+    public void setMember(Member member) {
+        if (this.member != null)
+            this.member.getUsedGoods().remove(this);
+        this.member = member;
+        if (!member.getUsedGoods().contains(this))
+            member.getUsedGoods().add(this);
     }
 }

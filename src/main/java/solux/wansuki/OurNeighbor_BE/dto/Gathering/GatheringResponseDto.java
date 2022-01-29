@@ -18,14 +18,16 @@ public class GatheringResponseDto {
         private String content;
         private String category;
         private List<Long> photoIds;
+        private String author;
 
         @Builder
-        public GatheringResponseDto(Long id, String title, String content, String category, List<Long> photoIds) {
+        public GatheringResponseDto(Long id, String title, String content, String category, List<Long> photoIds, String author) {
                 this.id = id;
                 this.title = title;
                 this.content = content;
                 this.category = category;
                 this.photoIds = photoIds;
+                this.author = author;
         }
 
 }

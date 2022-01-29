@@ -6,7 +6,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import solux.wansuki.OurNeighbor_BE.domain.Apartment.Apartment;
 import solux.wansuki.OurNeighbor_BE.domain.Comment.Comment;
+import solux.wansuki.OurNeighbor_BE.domain.Gathering.Gathering;
+import solux.wansuki.OurNeighbor_BE.domain.RecommendPost.RecommendPost;
 import solux.wansuki.OurNeighbor_BE.domain.Token.RefreshToken;
+import solux.wansuki.OurNeighbor_BE.domain.UsedGoods.UsedGoods;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -51,12 +54,38 @@ public class Member implements UserDetails {
     @OneToMany(mappedBy = "member")
     private List<Comment> comments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member")
+    private List<Gathering> gatherings = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<RecommendPost> recommendPosts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<UsedGoods> usedGoods = new ArrayList<>();
+
     public void addComment(Comment comment) {
         this.comments.add(comment);
         if (comment.getMember() != this)
             comment.setMember(this);
     }
 
+    public void addGathering(Gathering gathering) {
+        this.gatherings.add(gathering);
+        if (gathering.getMember() != this)
+            gathering.setMember(this);
+    }
+
+    public void  addRecommendPost(RecommendPost recommendPost) {
+        this.recommendPosts.add(recommendPost);
+        if (recommendPost.getMember() != this)
+            recommendPost.setMember(this);
+    }
+
+    public void addUsedGoods(UsedGoods usedGoods) {
+        this.usedGoods.add(usedGoods);
+        if (usedGoods.getMember() != this)
+            usedGoods.setMember(this);
+    }
 
     public void setRefreshToken(RefreshToken refreshToken) {
         this.refreshToken = refreshToken;

@@ -1,12 +1,15 @@
 package solux.wansuki.OurNeighbor_BE.service.RecommendPost;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import solux.wansuki.OurNeighbor_BE.FileHandler;
 import solux.wansuki.OurNeighbor_BE.domain.Comment.Comment;
 import solux.wansuki.OurNeighbor_BE.domain.Comment.CommentRepository;
+import solux.wansuki.OurNeighbor_BE.domain.Member.Member;
+import solux.wansuki.OurNeighbor_BE.domain.Member.MemberRepository;
 import solux.wansuki.OurNeighbor_BE.domain.Photo.Photo;
 import solux.wansuki.OurNeighbor_BE.domain.Photo.PhotoRepository;
 import solux.wansuki.OurNeighbor_BE.domain.RecommendPost.RecommendPost;
@@ -29,6 +32,7 @@ public class RecommendPostService {
     private final CommentRepository commentRepository;
     private final FileHandler fileHandler;
     private final PhotoRepository photoRepository;
+    private final MemberRepository memberRepository;
 
     @Transactional
     public Long update(Long id, RecommendPostUpdateDto requestDto) {
@@ -40,14 +44,17 @@ public class RecommendPostService {
     }
 
     @Transactional
-    public Long save(RecommendPostSaveDto saveDto, List<MultipartFile> files) throws Exception{
+    public Long save(RecommendPostSaveDto saveDto, List<MultipartFile> files, User user) throws Exception{
+        Member member = memberRepository.findByLoginId(user.getUsername()).orElseThrow();
         RecommendPost recommendPost = saveDto.toEntity();
         List<Photo> photoList = fileHandler.parseFileInfo(files);
         if (!photoList.isEmpty()) {
             for (Photo photo : photoList)
                 recommendPost.addPhoto(photoRepository.save(photo));
         }
-        return recommendPostRepository.save(recommendPost).getId();
+        Long id = recommendPostRepository.save(recommendPost).getId();
+        member.addRecommendPost(recommendPostRepository.findById(id).orElseThrow());
+        return id;
     }
 
     public List<CommentResponseDto> getComments(Long id) {
@@ -78,6 +85,7 @@ public class RecommendPostService {
                 .content(recommendPost.getContent())
                 .category(recommendPost.getCategory())
                 .photoIds(photoIds)
+                .author(recommendPost.getMember().getNickName())
                 .build();
         return responseDto;
     }

@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import solux.wansuki.OurNeighbor_BE.domain.Comment.Comment;
+import solux.wansuki.OurNeighbor_BE.domain.Member.Member;
 import solux.wansuki.OurNeighbor_BE.domain.Photo.Photo;
 //import solux.wansuki.OurNeighbor_BE.domain.BaseTimeEntity;
 
@@ -36,6 +37,10 @@ public class RecommendPost {
     )
     private List<Photo> photos = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
     @Builder
     public RecommendPost (String title, String content, String category) {
         this.title = title;
@@ -60,6 +65,14 @@ public class RecommendPost {
         this.title = title;
         this.content = content;
         this.category = category;
+    }
+
+    public void setMember(Member member) {
+        if (this.member != null)
+            this.member.getRecommendPosts().remove(this);
+        this.member = member;
+        if (!member.getRecommendPosts().contains(this))
+            member.getRecommendPosts().add(this);
     }
 
 }

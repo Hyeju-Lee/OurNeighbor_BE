@@ -1,6 +1,8 @@
 package solux.wansuki.OurNeighbor_BE.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import solux.wansuki.OurNeighbor_BE.domain.UsedGoods.UsedGoods;
@@ -25,13 +27,14 @@ public class UsedGoodsController {
     public Long save(
             @RequestParam(value = "file", required = false) List<MultipartFile> files,
             @RequestParam("title") String title,
-            @RequestParam(value = "content", required = false) String content
-    ) throws Exception{
+            @RequestParam(value = "content", required = false) String content,
+            @AuthenticationPrincipal User user
+            ) throws Exception{
         UsedGoodsSaveDto saveDto = UsedGoodsSaveDto.builder()
                 .title(title)
                 .content(content)
                 .build();
-        return usedGoodsService.save(saveDto, files);
+        return usedGoodsService.save(saveDto, files, user);
     }
 
     @PutMapping("/used-goods/{usedGoods_id}")

@@ -4,7 +4,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import solux.wansuki.OurNeighbor_BE.domain.Comment.Comment;
+import solux.wansuki.OurNeighbor_BE.domain.Member.Member;
 import solux.wansuki.OurNeighbor_BE.domain.Photo.Photo;
+import solux.wansuki.OurNeighbor_BE.domain.RecommendPost.RecommendPost;
 //import solux.wansuki.OurNeighbor_BE.domain.BaseTimeEntity;
 
 import javax.persistence.*;
@@ -35,6 +37,10 @@ public class Gathering {
     )
     private List<Photo> photos = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
     @Builder
     public Gathering (String title, String content, String category) {
         this.title = title;
@@ -59,6 +65,14 @@ public class Gathering {
         this.title = title;
         this.content = content;
         this.category = category;
+    }
+
+    public void setMember(Member member) {
+        if (this.member != null)
+            this.member.getGatherings().remove(this);
+        this.member = member;
+        if (!member.getGatherings().contains(this))
+            member.getGatherings().add(this);
     }
 
 }

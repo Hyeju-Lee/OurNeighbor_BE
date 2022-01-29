@@ -13,11 +13,14 @@ public class UsedGoodsResponseDto {
     private String title;
     private String content;
     private List<Long> photoId;
+    private String author;
 
     @Builder
-    public UsedGoodsResponseDto (Long id, String title, String content, List<Long> photoId) {
+    public UsedGoodsResponseDto (Long id, String title, String content, List<Long> photoId, String author) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.photoId = photoId;
+        this.author = author;
     }
 }
