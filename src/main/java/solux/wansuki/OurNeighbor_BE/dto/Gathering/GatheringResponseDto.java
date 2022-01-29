@@ -1,24 +1,31 @@
 //조회
 package solux.wansuki.OurNeighbor_BE.dto.Gathering;
 
+import lombok.Builder;
 import lombok.Getter;
 
+import lombok.NoArgsConstructor;
 import solux.wansuki.OurNeighbor_BE.domain.Gathering.Gathering;
 
-@Getter
+import java.util.List;
 
+@Getter
+@NoArgsConstructor
 public class GatheringResponseDto {
 
         private Long id;
         private String title;
         private String content;
         private String category;
+        private List<Long> photoIds;
 
-        public GatheringResponseDto(Gathering entity) {
-                this.id = entity.getId();
-                this.title = entity.getTitle();
-                this.content = entity.getContent();
-                this.category = entity.getCategory();
+        @Builder
+        public GatheringResponseDto(Long id, String title, String content, String category, List<Long> photoIds) {
+                this.id = id;
+                this.title = title;
+                this.content = content;
+                this.category = category;
+                this.photoIds = photoIds;
         }
 
 }

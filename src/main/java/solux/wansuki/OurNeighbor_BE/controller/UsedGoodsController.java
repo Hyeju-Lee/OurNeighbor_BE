@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import solux.wansuki.OurNeighbor_BE.domain.UsedGoods.UsedGoods;
 import solux.wansuki.OurNeighbor_BE.dto.Comment.CommentResponseDto;
+import solux.wansuki.OurNeighbor_BE.dto.UsedGoods.UsedGoodsResponseDto;
 import solux.wansuki.OurNeighbor_BE.dto.UsedGoods.UsedGoodsSaveDto;
 import solux.wansuki.OurNeighbor_BE.service.UsedGoodsService;
 
@@ -41,6 +42,11 @@ public class UsedGoodsController {
     @GetMapping("/used-goods/comments/{id}")
     public List<CommentResponseDto> getComments(@PathVariable Long id) {
         return usedGoodsService.getComments(id);
+    }
+
+    @GetMapping("/used-goods/{id}")
+    public UsedGoodsResponseDto findById(@PathVariable Long id) {
+        return usedGoodsService.findById(id);
     }
 
     @GetMapping("/used-goods")

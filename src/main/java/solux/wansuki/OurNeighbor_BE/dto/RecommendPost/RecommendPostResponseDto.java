@@ -1,23 +1,28 @@
 package solux.wansuki.OurNeighbor_BE.dto.RecommendPost;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import solux.wansuki.OurNeighbor_BE.domain.RecommendPost.RecommendPost;
+import java.util.List;
 
 @Getter
-
+@NoArgsConstructor
 public class RecommendPostResponseDto {
 
     private Long id;
     private String title;
     private String content;
     private String category;
+    private List<Long> photoIds;
 
-    public RecommendPostResponseDto(RecommendPost entity) {
-        this.id = entity.getId();
-        this.title = entity.getTitle();
-        this.content = entity.getContent();
-        this.category = entity.getCategory();
+    @Builder
+    public RecommendPostResponseDto(Long id, String title, String content, String category, List<Long> photoIds) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.category = category;
+        this.photoIds = photoIds;
     }
 
 }

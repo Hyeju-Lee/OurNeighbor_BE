@@ -11,10 +11,12 @@ import solux.wansuki.OurNeighbor_BE.domain.Gathering.Gathering;
 import solux.wansuki.OurNeighbor_BE.domain.Gathering.GatheringRepository;
 import solux.wansuki.OurNeighbor_BE.domain.Photo.Photo;
 import solux.wansuki.OurNeighbor_BE.domain.Photo.PhotoRepository;
+import solux.wansuki.OurNeighbor_BE.domain.UsedGoods.UsedGoods;
 import solux.wansuki.OurNeighbor_BE.dto.Comment.CommentResponseDto;
 import solux.wansuki.OurNeighbor_BE.dto.Gathering.GatheringResponseDto;
 import solux.wansuki.OurNeighbor_BE.dto.Gathering.GatheringSaveDto;
 import solux.wansuki.OurNeighbor_BE.dto.Gathering.GatheringUpdateDto;
+import solux.wansuki.OurNeighbor_BE.dto.UsedGoods.UsedGoodsResponseDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +64,20 @@ public class GatheringService {
     }
 
     public GatheringResponseDto findById(Long id) {
-        Gathering entity = gatheringRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
-        return new GatheringResponseDto(entity);
+        Gathering gathering = gatheringRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+        List<Photo> photoList = gathering.getPhotos();
+        List<Long> photoIds = new ArrayList<>();
+        for (Photo photo: photoList) {
+            photoIds.add(photo.getId());
+        }
+        GatheringResponseDto responseDto = GatheringResponseDto.builder()
+                .id(gathering.getId())
+                .title(gathering.getTitle())
+                .content(gathering.getContent())
+                .category(gathering.getCategory())
+                .photoIds(photoIds)
+                .build();
+
+        return responseDto;
     }
 }

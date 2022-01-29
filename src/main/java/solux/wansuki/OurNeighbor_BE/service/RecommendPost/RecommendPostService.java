@@ -13,6 +13,7 @@ import solux.wansuki.OurNeighbor_BE.domain.RecommendPost.RecommendPost;
 import solux.wansuki.OurNeighbor_BE.domain.RecommendPost.RecommendPostRepository;
 import solux.wansuki.OurNeighbor_BE.domain.UsedGoods.UsedGoods;
 import solux.wansuki.OurNeighbor_BE.dto.Comment.CommentResponseDto;
+import solux.wansuki.OurNeighbor_BE.dto.Gathering.GatheringResponseDto;
 import solux.wansuki.OurNeighbor_BE.dto.RecommendPost.RecommendPostResponseDto;
 import solux.wansuki.OurNeighbor_BE.dto.RecommendPost.RecommendPostSaveDto;
 import solux.wansuki.OurNeighbor_BE.dto.RecommendPost.RecommendPostUpdateDto;
@@ -65,9 +66,20 @@ public class RecommendPostService {
 
 
     public RecommendPostResponseDto findById(Long id) {
-            RecommendPost entity = recommendPostRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
-
-            return new RecommendPostResponseDto(entity);
+        RecommendPost recommendPost = recommendPostRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+        List<Photo> photoList = recommendPost.getPhotos();
+        List<Long> photoIds = new ArrayList<>();
+        for (Photo photo: photoList) {
+            photoIds.add(photo.getId());
+        }
+        RecommendPostResponseDto responseDto = RecommendPostResponseDto.builder()
+                .id(recommendPost.getId())
+                .title(recommendPost.getTitle())
+                .content(recommendPost.getContent())
+                .category(recommendPost.getCategory())
+                .photoIds(photoIds)
+                .build();
+        return responseDto;
     }
 }
 

@@ -12,6 +12,7 @@ import solux.wansuki.OurNeighbor_BE.domain.Photo.PhotoRepository;
 import solux.wansuki.OurNeighbor_BE.domain.UsedGoods.UsedGoods;
 import solux.wansuki.OurNeighbor_BE.domain.UsedGoods.UsedGoodsRepository;
 import solux.wansuki.OurNeighbor_BE.dto.Comment.CommentResponseDto;
+import solux.wansuki.OurNeighbor_BE.dto.UsedGoods.UsedGoodsResponseDto;
 import solux.wansuki.OurNeighbor_BE.dto.UsedGoods.UsedGoodsSaveDto;
 
 import java.util.ArrayList;
@@ -59,6 +60,22 @@ public class UsedGoodsService {
             responseDtos.add(commentResponseDto);
         }
         return responseDtos;
+    }
+
+    public UsedGoodsResponseDto findById(Long id) {
+        UsedGoods usedGoods = usedGoodsRepository.findById(id).orElseThrow();
+        List<Photo> photoList = usedGoods.getPhotos();
+        List<Long> photoIds = new ArrayList<>();
+        for (Photo photo: photoList) {
+            photoIds.add(photo.getId());
+        }
+        UsedGoodsResponseDto responseDto = UsedGoodsResponseDto.builder()
+                .id(usedGoods.getId())
+                .title(usedGoods.getTitle())
+                .content(usedGoods.getContent())
+                .photoId(photoIds)
+                .build();
+        return responseDto;
     }
 
     public List<UsedGoods> findAll() { return usedGoodsRepository.findAll();}
