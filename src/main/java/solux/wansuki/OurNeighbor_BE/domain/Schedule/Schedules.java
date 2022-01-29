@@ -19,16 +19,16 @@ public class Schedules {
     @Column(nullable = false)
     private String date;
 
-    private String content;
+    private String title;
 
     @ManyToOne
     @JoinColumn(name = "apart_id")
     private Apartment apartment;
 
     @Builder
-    public Schedules(String date, String content) {
+    public Schedules(String date, String title) {
         this.date = date;
-        this.content = content;
+        this.title = title;
     }
 
     public void setApartment(Apartment apartment) {

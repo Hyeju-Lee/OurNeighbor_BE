@@ -40,7 +40,7 @@ public class ScheduleService {
         for (Schedules schedule : schedules) {
             ScheduleResponseDto responseDto = ScheduleResponseDto.builder()
                     .date(schedule.getDate())
-                    .content(schedule.getContent())
+                    .title(schedule.getTitle())
                     .build();
             responseDtos.add(responseDto);
         }

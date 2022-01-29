@@ -9,11 +9,11 @@ import solux.wansuki.OurNeighbor_BE.domain.Schedule.Schedules;
 @NoArgsConstructor
 public class ScheduleResponseDto {
     private String date;
-    private String content;
+    private String title;
 
     @Builder
-    public ScheduleResponseDto(String date, String content) {
+    public ScheduleResponseDto(String date, String title) {
         this.date = date;
-        this.content = content;
+        this.title = title;
     }
 }

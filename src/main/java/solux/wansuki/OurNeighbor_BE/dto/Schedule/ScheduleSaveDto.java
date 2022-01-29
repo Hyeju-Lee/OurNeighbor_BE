@@ -9,17 +9,17 @@ import solux.wansuki.OurNeighbor_BE.domain.Schedule.Schedules;
 @NoArgsConstructor
 public class ScheduleSaveDto {
     private String date;
-    private String content;
+    private String title;
     @Builder
-    public ScheduleSaveDto(String date, String content) {
+    public ScheduleSaveDto(String date, String title) {
         this.date = date;
-        this.content = content;
+        this.title = title;
     }
 
     public Schedules toEntity() {
         return Schedules.builder()
                 .date(date)
-                .content(content)
+                .title(title)
                 .build();
     }
 }
