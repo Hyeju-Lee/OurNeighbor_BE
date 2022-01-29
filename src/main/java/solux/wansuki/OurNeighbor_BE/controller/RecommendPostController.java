@@ -13,6 +13,7 @@ import solux.wansuki.OurNeighbor_BE.service.RecommendPost.RecommendPostService;
 
 import java.util.List;
 
+@CrossOrigin
 @RequiredArgsConstructor
 @RestController
 

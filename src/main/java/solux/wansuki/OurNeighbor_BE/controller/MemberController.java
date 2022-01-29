@@ -10,6 +10,7 @@ import solux.wansuki.OurNeighbor_BE.service.Member.MemberService;
 
 import java.util.List;
 
+@CrossOrigin
 @RequiredArgsConstructor
 @RestController
 public class MemberController {
