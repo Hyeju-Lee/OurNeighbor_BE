@@ -26,4 +26,7 @@ public class CommentController {
     public List<Comment> findCommentByMember(@PathVariable Long memberId) {
         return commentService.findByMember(memberId);
     }
+
+    @DeleteMapping("/comment/{commentId}")
+    public void delete(@PathVariable Long commentId) { commentService.delete(commentId);}
 }

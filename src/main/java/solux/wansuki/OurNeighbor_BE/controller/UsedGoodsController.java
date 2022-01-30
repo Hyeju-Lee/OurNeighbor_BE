@@ -56,4 +56,7 @@ public class UsedGoodsController {
     public List<UsedGoods> findAll() {
         return usedGoodsService.findAll();
     }
+
+    @DeleteMapping("/used-goods/{id}")
+    public void delete(@PathVariable Long id) {usedGoodsService.delete(id);}
 }

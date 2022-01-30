@@ -28,7 +28,7 @@ public class Gathering {
     private String title;
     private String category;
 
-    @OneToMany(mappedBy = "gathering")
+    @OneToMany(mappedBy = "gathering", cascade = {CascadeType.ALL}, orphanRemoval = true)
     private List<Comment> comments;
 
     @OneToMany(

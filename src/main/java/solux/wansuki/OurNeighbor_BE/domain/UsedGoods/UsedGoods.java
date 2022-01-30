@@ -27,12 +27,12 @@ public class UsedGoods {
 
     @OneToMany(
             mappedBy = "usedGoods",
-            cascade = CascadeType.REMOVE,
+            cascade = CascadeType.ALL,
             orphanRemoval = true
     )
     private List<Photo> photos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "recommendPost")
+    @OneToMany(mappedBy = "usedGoods", cascade = {CascadeType.ALL}, orphanRemoval = true)
     private List<Comment> comments;
 
     @ManyToOne

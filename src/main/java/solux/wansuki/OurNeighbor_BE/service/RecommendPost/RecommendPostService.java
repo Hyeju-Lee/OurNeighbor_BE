@@ -92,5 +92,8 @@ public class RecommendPostService {
                 .build();
         return responseDto;
     }
+
+    @Transactional
+    public void delete(Long id) {recommendPostRepository.deleteById(id);}
 }
 

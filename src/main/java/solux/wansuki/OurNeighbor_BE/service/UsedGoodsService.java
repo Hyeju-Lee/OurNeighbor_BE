@@ -91,4 +91,7 @@ public class UsedGoodsService {
 
     public List<UsedGoods> findAll() { return usedGoodsRepository.findAll();}
 
+    @Transactional
+    public void delete(Long id) {usedGoodsRepository.deleteById(id);}
+
 }

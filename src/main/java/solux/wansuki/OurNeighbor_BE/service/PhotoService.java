@@ -34,7 +34,6 @@ public class PhotoService {
         return new ResponseEntity<>(images, HttpStatus.OK);
     }
 
-    @Transactional
     public PhotoResponseDto findById(Long id) {
         Photo photo = photoRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 포토 없음"));
@@ -46,4 +45,7 @@ public class PhotoService {
                 .build();
         return responseDto;
     }
+
+    @Transactional
+    public void delete(Long id) {photoRepository.deleteById(id);}
 }

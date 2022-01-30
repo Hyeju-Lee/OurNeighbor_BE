@@ -55,4 +55,7 @@ public class GatheringController {
     public GatheringResponseDto findById (@PathVariable Long id) {
         return gatheringService.findById(id);
     }
+
+    @DeleteMapping("/gathering/{id}")
+    public void delete(@PathVariable Long id) {gatheringService.delete(id);}
 }

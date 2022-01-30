@@ -52,4 +52,7 @@ public class RecommendPostController {
     public RecommendPostResponseDto findById (@PathVariable Long id) {
         return recommendPostService.findById(id);
     }
+
+    @DeleteMapping("/recommend-posts/{id}")
+    public void delete(@PathVariable Long id) {recommendPostService.delete(id);}
 }

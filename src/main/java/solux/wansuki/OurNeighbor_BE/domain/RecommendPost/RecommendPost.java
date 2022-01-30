@@ -28,12 +28,12 @@ public class RecommendPost {
     private String title;
     private String category;
 
-    @OneToMany(mappedBy = "recommendPost")
+    @OneToMany(mappedBy = "recommendPost", cascade = {CascadeType.ALL}, orphanRemoval = true)
     private List<Comment> comments;
 
     @OneToMany(
             mappedBy = "recommendPost",
-            cascade = CascadeType.REMOVE,
+            cascade = CascadeType.ALL,
             orphanRemoval = true
     )
     private List<Photo> photos = new ArrayList<>();

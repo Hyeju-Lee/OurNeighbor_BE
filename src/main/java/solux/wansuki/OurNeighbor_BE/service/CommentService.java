@@ -52,4 +52,7 @@ public class CommentService {
         Member member = memberRepository.findById(memberId).orElseThrow();
         return member.getComments();
     }
+
+    @Transactional
+    public void delete(Long id) { commentRepository.deleteById(id);}
 }

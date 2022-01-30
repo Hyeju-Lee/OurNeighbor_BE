@@ -3,10 +3,7 @@ package solux.wansuki.OurNeighbor_BE.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import solux.wansuki.OurNeighbor_BE.dto.Photo.PhotoResponseDto;
 import solux.wansuki.OurNeighbor_BE.service.PhotoService;
 
@@ -29,4 +26,7 @@ public class PhotoController {
     public ResponseEntity<byte[]> getPhoto(@PathVariable Long photoId) throws IOException {
         return photoService.getPhoto(photoId);
     }
+
+    @DeleteMapping("/photo/{photoId}")
+    public void delete(@PathVariable Long photoId) {photoService.delete(photoId);}
 }

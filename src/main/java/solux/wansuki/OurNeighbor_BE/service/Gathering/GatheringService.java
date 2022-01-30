@@ -91,4 +91,7 @@ public class GatheringService {
 
         return responseDto;
     }
+
+    @Transactional
+    public void delete(Long id) {gatheringRepository.deleteById(id);}
 }
