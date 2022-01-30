@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import solux.wansuki.OurNeighbor_BE.FileHandler;
+import solux.wansuki.OurNeighbor_BE.domain.Apartment.Apartment;
 import solux.wansuki.OurNeighbor_BE.domain.Comment.Comment;
 import solux.wansuki.OurNeighbor_BE.domain.Comment.CommentRepository;
 import solux.wansuki.OurNeighbor_BE.domain.Member.Member;
@@ -44,6 +45,8 @@ public class UsedGoodsService {
         }
         Long id = usedGoodsRepository.save(usedGoods).getId();
         member.addUsedGoods(usedGoodsRepository.findById(id).orElseThrow());
+        Apartment apartment = member.getApartment();
+        apartment.addUsedGoods(usedGoodsRepository.findById(id).orElseThrow());
         return id;
     }
 

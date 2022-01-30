@@ -3,6 +3,7 @@ package solux.wansuki.OurNeighbor_BE.domain.RecommendPost;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import solux.wansuki.OurNeighbor_BE.domain.Apartment.Apartment;
 import solux.wansuki.OurNeighbor_BE.domain.Comment.Comment;
 import solux.wansuki.OurNeighbor_BE.domain.Member.Member;
 import solux.wansuki.OurNeighbor_BE.domain.Photo.Photo;
@@ -41,6 +42,10 @@ public class RecommendPost {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @ManyToOne
+    @JoinColumn(name = "apart_id")
+    private Apartment apartment;
+
     @Builder
     public RecommendPost (String title, String content, String category) {
         this.title = title;
@@ -73,6 +78,14 @@ public class RecommendPost {
         this.member = member;
         if (!member.getRecommendPosts().contains(this))
             member.getRecommendPosts().add(this);
+    }
+
+    public void setApartment(Apartment apartment) {
+        if (this.apartment != null)
+            this.apartment.getRecommendPosts().remove(this);
+        this.apartment = apartment;
+        if (!apartment.getRecommendPosts().contains(this))
+            apartment.getRecommendPosts().add(this);
     }
 
 }

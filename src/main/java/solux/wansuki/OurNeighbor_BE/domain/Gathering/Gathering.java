@@ -3,6 +3,7 @@ package solux.wansuki.OurNeighbor_BE.domain.Gathering;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import solux.wansuki.OurNeighbor_BE.domain.Apartment.Apartment;
 import solux.wansuki.OurNeighbor_BE.domain.Comment.Comment;
 import solux.wansuki.OurNeighbor_BE.domain.Member.Member;
 import solux.wansuki.OurNeighbor_BE.domain.Photo.Photo;
@@ -32,7 +33,7 @@ public class Gathering {
 
     @OneToMany(
             mappedBy = "gathering",
-            cascade = CascadeType.REMOVE,
+            cascade = CascadeType.ALL,
             orphanRemoval = true
     )
     private List<Photo> photos = new ArrayList<>();
@@ -40,6 +41,10 @@ public class Gathering {
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @ManyToOne
+    @JoinColumn(name = "apart_id")
+    private Apartment apartment;
 
     @Builder
     public Gathering (String title, String content, String category) {
@@ -73,6 +78,14 @@ public class Gathering {
         this.member = member;
         if (!member.getGatherings().contains(this))
             member.getGatherings().add(this);
+    }
+
+    public void setApartment(Apartment apartment) {
+        if (this.apartment != null)
+            this.apartment.getGatherings().remove(this);
+        this.apartment = apartment;
+        if (!apartment.getGatherings().contains(this))
+            apartment.getGatherings().add(this);
     }
 
 }

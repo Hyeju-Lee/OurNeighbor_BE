@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import solux.wansuki.OurNeighbor_BE.FileHandler;
+import solux.wansuki.OurNeighbor_BE.domain.Apartment.Apartment;
 import solux.wansuki.OurNeighbor_BE.domain.Comment.Comment;
 import solux.wansuki.OurNeighbor_BE.domain.Comment.CommentRepository;
 import solux.wansuki.OurNeighbor_BE.domain.Member.Member;
@@ -54,6 +55,8 @@ public class RecommendPostService {
         }
         Long id = recommendPostRepository.save(recommendPost).getId();
         member.addRecommendPost(recommendPostRepository.findById(id).orElseThrow());
+        Apartment apartment = member.getApartment();
+        apartment.addRecommendPost(recommendPostRepository.findById(id).orElseThrow());
         return id;
     }
 

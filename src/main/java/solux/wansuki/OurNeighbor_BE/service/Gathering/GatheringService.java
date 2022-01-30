@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import solux.wansuki.OurNeighbor_BE.FileHandler;
+import solux.wansuki.OurNeighbor_BE.domain.Apartment.Apartment;
 import solux.wansuki.OurNeighbor_BE.domain.Comment.Comment;
 import solux.wansuki.OurNeighbor_BE.domain.Comment.CommentRepository;
 import solux.wansuki.OurNeighbor_BE.domain.Gathering.Gathering;
@@ -53,6 +54,8 @@ public class GatheringService {
         }
         Long id = gatheringRepository.save(gathering).getId();
         member.addGathering(gatheringRepository.findById(id).orElseThrow());
+        Apartment apartment = member.getApartment();
+        apartment.addGatherings(gatheringRepository.findById(id).orElseThrow());
         return id;
     }
 

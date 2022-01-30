@@ -3,6 +3,7 @@ package solux.wansuki.OurNeighbor_BE.domain.UsedGoods;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import solux.wansuki.OurNeighbor_BE.domain.Apartment.Apartment;
 import solux.wansuki.OurNeighbor_BE.domain.Comment.Comment;
 import solux.wansuki.OurNeighbor_BE.domain.Member.Member;
 import solux.wansuki.OurNeighbor_BE.domain.Photo.Photo;
@@ -38,6 +39,10 @@ public class UsedGoods {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @ManyToOne
+    @JoinColumn(name = "apart_id")
+    private Apartment apartment;
+
     @Builder
     public UsedGoods(String title, String content) {
         this.title = title;
@@ -68,5 +73,13 @@ public class UsedGoods {
         this.member = member;
         if (!member.getUsedGoods().contains(this))
             member.getUsedGoods().add(this);
+    }
+
+    public void setApartment(Apartment apartment) {
+        if (this.apartment != null)
+            this.apartment.getUsedGoods().remove(this);
+        this.apartment = apartment;
+        if (!apartment.getUsedGoods().contains(this))
+            apartment.getUsedGoods().add(this);
     }
 }
