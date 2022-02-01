@@ -28,7 +28,7 @@ public class MemberController {
     public TokenInfoResponseDto reissue(@RequestBody ReissueRequestDto requestDto) {return memberService.reissue(requestDto);}
 
     @GetMapping("/member/{loginId}")
-    public String checkLoginId(@PathVariable String loginId) {
+    public String isLoginIdPresent(@PathVariable String loginId) {
         return memberService.isLoginIdPresent(loginId);
     }
 
@@ -44,4 +44,8 @@ public class MemberController {
 
     @DeleteMapping("/member/{id}")
     public void delete(@PathVariable Long id) {memberService.delete(id);}
+
+    @GetMapping("/member/nick-name/{nickName}")
+    public String isNickNamePresent(@PathVariable String nickName) {return memberService.isNickNamePresent(nickName);}
+
 }

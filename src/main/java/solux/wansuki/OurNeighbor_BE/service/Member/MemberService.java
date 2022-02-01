@@ -141,4 +141,12 @@ public class MemberService {
     public void delete(Long id) {
         memberRepository.deleteById(id);
     }
+
+    public String isNickNamePresent(String nickName) {
+        if (memberRepository.findByNickName(nickName).isPresent())
+            return "present";
+        else {
+            return "not present";
+        }
+    }
 }
