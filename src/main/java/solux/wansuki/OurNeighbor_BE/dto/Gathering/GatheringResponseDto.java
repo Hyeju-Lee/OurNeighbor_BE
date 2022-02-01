@@ -19,15 +19,18 @@ public class GatheringResponseDto {
         private String category;
         private List<Long> photoIds;
         private String author;
+        private boolean complete;
 
         @Builder
-        public GatheringResponseDto(Long id, String title, String content, String category, List<Long> photoIds, String author) {
+        public GatheringResponseDto(Long id, String title, String content, String category
+                , List<Long> photoIds, String author, boolean complete) {
                 this.id = id;
                 this.title = title;
                 this.content = content;
                 this.category = category;
                 this.photoIds = photoIds;
                 this.author = author;
+                this.complete = complete;
         }
 
 }

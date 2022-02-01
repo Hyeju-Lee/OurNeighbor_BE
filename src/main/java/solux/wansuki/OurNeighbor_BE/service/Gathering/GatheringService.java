@@ -88,6 +88,7 @@ public class GatheringService {
                 .content(gathering.getContent())
                 .category(gathering.getCategory())
                 .photoIds(photoIds)
+                .complete(gathering.isComplete())
                 .build();
 
         return responseDto;

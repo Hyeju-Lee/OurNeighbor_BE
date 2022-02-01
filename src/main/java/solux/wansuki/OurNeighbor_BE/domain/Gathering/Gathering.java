@@ -27,6 +27,7 @@ public class Gathering {
     private String content;
     private String title;
     private String category;
+    private boolean complete;
 
     @OneToMany(mappedBy = "gathering", cascade = {CascadeType.ALL}, orphanRemoval = true)
     private List<Comment> comments;
@@ -47,10 +48,11 @@ public class Gathering {
     private Apartment apartment;
 
     @Builder
-    public Gathering (String title, String content, String category) {
+    public Gathering (String title, String content, String category, boolean complete) {
         this.title = title;
         this.content = content;
         this.category = category;
+        this.complete = complete;
     }
 
     public void addComment(Comment comment) {

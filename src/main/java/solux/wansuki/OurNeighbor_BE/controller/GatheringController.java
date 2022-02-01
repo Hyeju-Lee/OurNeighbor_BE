@@ -31,12 +31,14 @@ public class GatheringController {
             @RequestParam("title") String title,
             @RequestParam(value = "content", required = false) String content,
             @RequestParam("category") String category,
+            @RequestParam("complete") boolean complete,
             @AuthenticationPrincipal User user
             ) throws Exception {
         GatheringSaveDto saveDto = GatheringSaveDto.builder()
                 .title(title)
                 .content(content)
                 .category(category)
+                .complete(complete)
                 .build();
         return gatheringService.save(saveDto, files, user);
     }
