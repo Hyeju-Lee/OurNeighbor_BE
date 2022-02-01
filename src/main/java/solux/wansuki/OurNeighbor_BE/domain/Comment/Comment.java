@@ -22,6 +22,8 @@ public class Comment {
 
     private String content;
 
+    private Long responseTo;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "member_id")
@@ -43,8 +45,9 @@ public class Comment {
     private UsedGoods usedGoods;
 
     @Builder
-    public Comment (String content) {
+    public Comment (String content, Long responseTo) {
         this.content = content;
+        this.responseTo = responseTo;
     }
 
     public void setMember(Member member) {

@@ -66,6 +66,7 @@ public class UsedGoodsService {
                     .commentId(comment.getId())
                     .content(comment.getContent())
                     .userNickName(comment.getMember().getNickName())
+                    .responseTo(comment.getResponseTo())
                     .build();
             responseDtos.add(commentResponseDto);
         }
