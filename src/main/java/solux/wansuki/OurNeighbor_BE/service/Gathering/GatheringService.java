@@ -97,4 +97,10 @@ public class GatheringService {
 
     @Transactional
     public void delete(Long id) {gatheringRepository.deleteById(id);}
+
+    @Transactional
+    public void setComplete(Long id) {
+        Gathering gathering = gatheringRepository.findById(id).orElseThrow();
+        gathering.setComplete();
+    }
 }

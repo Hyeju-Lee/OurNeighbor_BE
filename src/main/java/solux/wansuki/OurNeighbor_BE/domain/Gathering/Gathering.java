@@ -91,4 +91,8 @@ public class Gathering extends BaseTimeEntity {
             apartment.getGatherings().add(this);
     }
 
+    public void setComplete() {
+        this.complete = true;
+    }
+
 }

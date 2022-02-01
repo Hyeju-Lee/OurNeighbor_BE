@@ -51,6 +51,8 @@ public class ApartmentService {
                     .category(gathering.getCategory())
                     .photoIds(photoIds)
                     .author(gathering.getMember().getNickName())
+                    .complete(gathering.isComplete())
+                    .createdDate(gathering.getCreatedDate())
                     .build();
             responseDtos.add(responseDto);
         }
@@ -74,6 +76,7 @@ public class ApartmentService {
                     .category(recommendPost.getCategory())
                     .photoIds(photoIds)
                     .author(recommendPost.getMember().getNickName())
+                    .createdDate(recommendPost.getCreatedDate())
                     .build();
             responseDtos.add(responseDto);
         }
@@ -96,6 +99,7 @@ public class ApartmentService {
                     .content(usedGoods.getContent())
                     .author(usedGoods.getMember().getNickName())
                     .photoId(photoIds)
+                    .createdDate(usedGoods.getCreatedDate())
                     .build();
             responseDtos.add(responseDto);
         }

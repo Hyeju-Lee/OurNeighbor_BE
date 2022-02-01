@@ -31,21 +31,20 @@ public class GatheringController {
             @RequestParam("title") String title,
             @RequestParam(value = "content", required = false) String content,
             @RequestParam("category") String category,
-            @RequestParam("complete") boolean complete,
             @AuthenticationPrincipal User user
             ) throws Exception {
         GatheringSaveDto saveDto = GatheringSaveDto.builder()
                 .title(title)
                 .content(content)
                 .category(category)
-                .complete(complete)
+                .complete(false)
                 .build();
         return gatheringService.save(saveDto, files, user);
     }
 
-    @PutMapping("/gathering")
-    public Long update(@PathVariable Long id, @RequestBody GatheringUpdateDto requestDto) {
-        return gatheringService.update(id, requestDto);
+    @PutMapping("/gathering/{id}")
+    public void setComplete(@PathVariable Long id) {
+        gatheringService.setComplete(id);
     }
 
     @GetMapping("/gathering/comment/{gatheringId}")
