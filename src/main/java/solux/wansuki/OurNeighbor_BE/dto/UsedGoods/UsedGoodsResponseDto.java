@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -14,13 +15,16 @@ public class UsedGoodsResponseDto {
     private String content;
     private List<Long> photoId;
     private String author;
+    private LocalDateTime createdDate;
 
     @Builder
-    public UsedGoodsResponseDto (Long id, String title, String content, List<Long> photoId, String author) {
+    public UsedGoodsResponseDto (Long id, String title, String content, List<Long> photoId
+            , String author, LocalDateTime createdDate) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.photoId = photoId;
         this.author = author;
+        this.createdDate = createdDate;
     }
 }

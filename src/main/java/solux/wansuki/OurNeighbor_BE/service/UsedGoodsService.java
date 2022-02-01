@@ -86,6 +86,7 @@ public class UsedGoodsService {
                 .content(usedGoods.getContent())
                 .photoId(photoIds)
                 .author(usedGoods.getMember().getNickName())
+                .createdDate(usedGoods.getCreatedDate())
                 .build();
         return responseDto;
     }

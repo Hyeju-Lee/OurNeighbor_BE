@@ -90,6 +90,7 @@ public class RecommendPostService {
                 .category(recommendPost.getCategory())
                 .photoIds(photoIds)
                 .author(recommendPost.getMember().getNickName())
+                .createdDate(recommendPost.getCreatedDate())
                 .build();
         return responseDto;
     }

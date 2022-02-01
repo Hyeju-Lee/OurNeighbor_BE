@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import solux.wansuki.OurNeighbor_BE.domain.Apartment.Apartment;
+import solux.wansuki.OurNeighbor_BE.domain.BaseTimeEntity;
 import solux.wansuki.OurNeighbor_BE.domain.Comment.Comment;
 import solux.wansuki.OurNeighbor_BE.domain.Member.Member;
 import solux.wansuki.OurNeighbor_BE.domain.Photo.Photo;
@@ -16,7 +17,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Entity
-public class RecommendPost {
+public class RecommendPost extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -89,6 +89,7 @@ public class GatheringService {
                 .category(gathering.getCategory())
                 .photoIds(photoIds)
                 .complete(gathering.isComplete())
+                .createdDate(gathering.getCreatedDate())
                 .build();
 
         return responseDto;

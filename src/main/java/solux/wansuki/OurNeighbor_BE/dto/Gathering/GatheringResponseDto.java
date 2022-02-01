@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import solux.wansuki.OurNeighbor_BE.domain.Gathering.Gathering;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -20,10 +21,11 @@ public class GatheringResponseDto {
         private List<Long> photoIds;
         private String author;
         private boolean complete;
+        private LocalDateTime createdDate;
 
         @Builder
         public GatheringResponseDto(Long id, String title, String content, String category
-                , List<Long> photoIds, String author, boolean complete) {
+                , List<Long> photoIds, String author, boolean complete, LocalDateTime createdDate) {
                 this.id = id;
                 this.title = title;
                 this.content = content;
@@ -31,6 +33,7 @@ public class GatheringResponseDto {
                 this.photoIds = photoIds;
                 this.author = author;
                 this.complete = complete;
+                this.createdDate = createdDate;
         }
 
 }
