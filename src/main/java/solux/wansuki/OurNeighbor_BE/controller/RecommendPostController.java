@@ -13,20 +13,20 @@ import solux.wansuki.OurNeighbor_BE.service.RecommendPost.RecommendPostService;
 @RestController
 
 public class RecommendPostController {
-    private final RecommendPostService postsService;
+    private final RecommendPostService recommendPostService;
 
-    @PostMapping("/recommend-post")
+    @PostMapping("/recommendPost")
     public Long save(@RequestBody RecommendPostSaveDto saveDto) {
-        return RecommendPostService.save(saveDto);
+        return recommendPostService.save(saveDto);
     }
 
-    @PutMapping("/recommend-post")
+    @PutMapping("/recommendPost")
     public Long update(@PathVariable Long id, @RequestBody RecommendPostUpdateDto requestDto) {
-        return RecommendPostService.update(id, requestDto);
+        return recommendPostService.update(id, requestDto);
     }
 
-    @GetMapping("/recommend-post")
+    @GetMapping("/recommendPost/{id}")
     public RecommendPostResponseDto findById (@PathVariable Long id) {
-        return RecommendPostService.findById(id);
+        return recommendPostService.findById(id);
     }
 }

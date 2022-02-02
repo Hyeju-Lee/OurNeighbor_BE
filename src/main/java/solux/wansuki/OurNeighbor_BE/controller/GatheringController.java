@@ -15,20 +15,20 @@ import solux.wansuki.OurNeighbor_BE.service.Member.MemberService;
 @RestController
 
 public class GatheringController {
-    private final GatheringService GatheringService;
+    private final GatheringService gatheringService;
 
     @PostMapping("/gathering")
     public Long save(@RequestBody GatheringSaveDto saveDto) {
-        return GatheringService.save(saveDto);
+        return gatheringService.save(saveDto);
     }
 
     @PutMapping("/gathering")
     public Long update(@PathVariable Long id, @RequestBody GatheringUpdateDto requestDto) {
-        return GatheringService.update(id, requestDto);
+        return gatheringService.update(id, requestDto);
     }
 
-    @GetMapping("/gathering")
+    @GetMapping("/gathering/{id}")
     public GatheringResponseDto findById (@PathVariable Long id) {
-        return GatheringService.findById(id);
+        return gatheringService.findById(id);
     }
 }

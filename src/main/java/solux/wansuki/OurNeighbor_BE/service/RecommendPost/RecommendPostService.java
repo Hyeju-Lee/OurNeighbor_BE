@@ -12,26 +12,25 @@ import solux.wansuki.OurNeighbor_BE.dto.RecommendPost.RecommendPostUpdateDto;
 @RequiredArgsConstructor
 @Service
 public class RecommendPostService {
-    private static RecommendPostRepository RecommendPostRepository;
+    private final RecommendPostRepository recommendPostRepository;
 
     @Transactional
-    public static Long update(Long id, RecommendPostUpdateDto requestDto) {
-        RecommendPost RecommendPost = RecommendPostRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id =" + id));
-
+    public Long update(Long id, RecommendPostUpdateDto requestDto) {
+        RecommendPost RecommendPost = recommendPostRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id =" + id));
         RecommendPost.update(requestDto.getTitle(), requestDto.getContent(), requestDto.getCategory());
 
         return id;
     }
 
-    public static Long save(RecommendPostSaveDto saveDto) {
-        return RecommendPostRepository.save(saveDto.toEntity()).getId();
+    public Long save(RecommendPostSaveDto saveDto) {
+        return recommendPostRepository.save(saveDto.toEntity()).getId();
     }
 
 
-    public static RecommendPostResponseDto findById(Long id) {
-            RecommendPost entity = RecommendPostRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+    public RecommendPostResponseDto findById(Long id) {
+        RecommendPost entity = recommendPostRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
 
-            return new RecommendPostResponseDto(entity);
+        return new RecommendPostResponseDto(entity);
     }
 }
 

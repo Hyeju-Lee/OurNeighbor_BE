@@ -1,4 +1,4 @@
-package solux.wansuki.OurNeighbor_BE.domain.RecommendPost;
+package solux.wansuki.OurNeighbor_BE.domain.Notices;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -15,8 +15,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Entity
 
-public class RecommendPost {
-
+public class Notices {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,20 +23,16 @@ public class RecommendPost {
     @Column (length = 500, nullable = false)
     private String content;
     private String title;
-    private String category;
 
     @Builder
-    public RecommendPost (String title, String content, String category) {
+    public Notices (String title, String content, String category) {
         this.title = title;
         this.content = content;
-        this.category = category;
     }
 
-    public void update(String title, String content, String category) {
+    public void update(String title, String content) {
         this.title = title;
         this.content = content;
-        this.category = category;
     }
-
 
 }
