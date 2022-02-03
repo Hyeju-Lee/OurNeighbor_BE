@@ -38,7 +38,6 @@ public class RecommendPostService {
     @Transactional
     public Long update(Long id, RecommendPostUpdateDto requestDto) {
         RecommendPost RecommendPost = recommendPostRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id =" + id));
-
         RecommendPost.update(requestDto.getTitle(), requestDto.getContent(), requestDto.getCategory());
 
         return id;
@@ -75,7 +74,6 @@ public class RecommendPostService {
         }
         return responseDtos;
     }
-
 
     public RecommendPostResponseDto findById(Long id) {
         RecommendPost recommendPost = recommendPostRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));

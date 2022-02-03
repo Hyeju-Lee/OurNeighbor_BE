@@ -88,5 +88,4 @@ public class RecommendPost extends BaseTimeEntity {
         if (!apartment.getRecommendPosts().contains(this))
             apartment.getRecommendPosts().add(this);
     }
-
 }
