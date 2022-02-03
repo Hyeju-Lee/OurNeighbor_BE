@@ -69,6 +69,7 @@ public class RecommendPostService {
                     .content(comment.getContent())
                     .userNickName(comment.getMember().getNickName())
                     .responseTo(comment.getResponseTo())
+                    .commentType(comment.getCommentType())
                     .build();
             responseDtos.add(commentResponseDto);
         }

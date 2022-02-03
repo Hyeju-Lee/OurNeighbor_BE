@@ -11,13 +11,16 @@ public class CommentResponseDto {
     private String userNickName;
     private String content;
     private Long responseTo;
+    private String commentType;
 
     @Builder
-    public CommentResponseDto (Long commentId, String userNickName, String content, Long responseTo) {
+    public CommentResponseDto (Long commentId, String userNickName, String content
+            , Long responseTo, String commentType) {
         this.commentId = commentId;
         this.userNickName = userNickName;
         this.content = content;
         this.responseTo = responseTo;
+        this.commentType = commentType;
     }
 
 }

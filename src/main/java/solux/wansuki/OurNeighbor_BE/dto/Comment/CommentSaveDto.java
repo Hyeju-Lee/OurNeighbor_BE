@@ -15,17 +15,21 @@ public class CommentSaveDto {
 
     private Long responseTo;
 
+    private String commentType;
+
     @Builder
-    public CommentSaveDto(String content, String postCategory, Long responseTo) {
+    public CommentSaveDto(String content, String postCategory, Long responseTo, String commentType) {
         this.content = content;
         this.postCategory = postCategory;
         this.responseTo = responseTo;
+        this.commentType = commentType;
     }
 
     public Comment toEntity() {
         return Comment.builder()
                 .content(content)
                 .responseTo(responseTo)
+                .commentType(commentType)
                 .build();
     }
 }
