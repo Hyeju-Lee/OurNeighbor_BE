@@ -9,7 +9,6 @@ import solux.wansuki.OurNeighbor_BE.domain.Comment.Comment;
 import solux.wansuki.OurNeighbor_BE.domain.Member.Member;
 import solux.wansuki.OurNeighbor_BE.domain.Photo.Photo;
 import solux.wansuki.OurNeighbor_BE.domain.RecommendPost.RecommendPost;
-//import solux.wansuki.OurNeighbor_BE.domain.BaseTimeEntity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
