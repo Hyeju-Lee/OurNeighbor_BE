@@ -15,12 +15,14 @@ public class GatheringSaveDto {
     private String title;
     private String content;
     private String category;
+    private boolean complete;
 
     @Builder
-    public GatheringSaveDto(String title, String content, String category) {
+    public GatheringSaveDto(String title, String content, String category, boolean complete) {
         this.title = title;
         this.content = content;
         this.category = category;
+        this.complete = complete;
     }
 
     public Gathering toEntity() {
@@ -28,6 +30,7 @@ public class GatheringSaveDto {
                 .title(title)
                 .content(content)
                 .category(category)
+                .complete(complete)
                 .build();
     }
 }

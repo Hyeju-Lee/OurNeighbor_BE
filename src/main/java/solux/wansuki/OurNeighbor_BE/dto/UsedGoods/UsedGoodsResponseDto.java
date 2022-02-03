@@ -1,4 +1,4 @@
-package solux.wansuki.OurNeighbor_BE.dto.RecommendPost;
+package solux.wansuki.OurNeighbor_BE.dto.UsedGoods;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -9,26 +9,22 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class RecommendPostResponseDto {
-
+public class UsedGoodsResponseDto {
     private Long id;
     private String title;
     private String content;
-    private String category;
-    private List<Long> photoIds;
+    private List<Long> photoId;
     private String author;
     private LocalDateTime createdDate;
 
     @Builder
-    public RecommendPostResponseDto(Long id, String title, String content, String category
-            , List<Long> photoIds, String author, LocalDateTime createdDate) {
+    public UsedGoodsResponseDto (Long id, String title, String content, List<Long> photoId
+            , String author, LocalDateTime createdDate) {
         this.id = id;
         this.title = title;
         this.content = content;
-        this.category = category;
-        this.photoIds = photoIds;
+        this.photoId = photoId;
         this.author = author;
         this.createdDate = createdDate;
     }
-
 }
