@@ -68,6 +68,11 @@ public class Member implements UserDetails {
     @OneToMany(mappedBy = "member", cascade = {CascadeType.ALL}, orphanRemoval = true)
     private List<UsedGoods> usedGoods = new ArrayList<>();
 
+    public void update(String nickName, String password) {
+        this.nickName = nickName;
+        this.password = password;
+    }
+
     public void addComment(Comment comment) {
         this.comments.add(comment);
         if (comment.getMember() != this)

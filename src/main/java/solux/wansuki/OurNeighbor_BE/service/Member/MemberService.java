@@ -149,4 +149,11 @@ public class MemberService {
             return "not present";
         }
     }
+
+    @Transactional
+    public String update(User user, MemberUpdateDto updateDto) {
+        Member member = memberRepository.findByLoginId(user.getUsername()).orElseThrow();
+        member.update(updateDto.getNickName(), passwordEncoder.encode(updateDto.getPassword()));
+        return "success";
+    }
 }

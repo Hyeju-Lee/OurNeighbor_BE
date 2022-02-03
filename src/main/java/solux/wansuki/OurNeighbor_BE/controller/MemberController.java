@@ -48,4 +48,8 @@ public class MemberController {
     @GetMapping("/member/nick-name/{nickName}")
     public String isNickNamePresent(@PathVariable String nickName) {return memberService.isNickNamePresent(nickName);}
 
+    @PutMapping("/member")
+    public String update(@AuthenticationPrincipal User user, @RequestBody MemberUpdateDto updateDto) {
+        return memberService.update(user, updateDto);
+    }
 }
