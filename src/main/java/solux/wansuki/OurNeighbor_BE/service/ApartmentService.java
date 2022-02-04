@@ -169,9 +169,17 @@ public class ApartmentService {
         });
 
         List<LatestPostResponseDto> result = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            result.add(responseDtos.get(i));
+        if (responseDtos.size() >= 5) {
+            for (int i = 0; i < 5; i++) {
+                result.add(responseDtos.get(i));
+            }
         }
+        else {
+            for (int i = 0; i < responseDtos.size(); i++) {
+                result.add(responseDtos.get(i));
+            }
+        }
+
 
         return result;
     }
