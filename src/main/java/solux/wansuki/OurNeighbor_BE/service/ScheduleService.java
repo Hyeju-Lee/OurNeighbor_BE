@@ -39,6 +39,7 @@ public class ScheduleService {
         List<ScheduleResponseDto> responseDtos = new ArrayList<>();
         for (Schedules schedule : schedules) {
             ScheduleResponseDto responseDto = ScheduleResponseDto.builder()
+                    .id(schedule.getId())
                     .date(schedule.getDate())
                     .title(schedule.getTitle())
                     .build();

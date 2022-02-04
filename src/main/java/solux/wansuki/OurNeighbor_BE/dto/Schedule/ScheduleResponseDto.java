@@ -8,11 +8,13 @@ import solux.wansuki.OurNeighbor_BE.domain.Schedule.Schedules;
 @Getter
 @NoArgsConstructor
 public class ScheduleResponseDto {
+    private Long id;
     private String date;
     private String title;
 
     @Builder
-    public ScheduleResponseDto(String date, String title) {
+    public ScheduleResponseDto(Long id, String date, String title) {
+        this.id = id;
         this.date = date;
         this.title = title;
     }
