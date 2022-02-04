@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import solux.wansuki.OurNeighbor_BE.domain.Gathering.Gathering;
 import solux.wansuki.OurNeighbor_BE.domain.Member.Member;
+import solux.wansuki.OurNeighbor_BE.domain.Notices.Notices;
 import solux.wansuki.OurNeighbor_BE.domain.RecommendPost.RecommendPost;
 import solux.wansuki.OurNeighbor_BE.domain.Schedule.Schedules;
 import solux.wansuki.OurNeighbor_BE.domain.UsedGoods.UsedGoods;
@@ -46,6 +47,10 @@ public class Apartment {
     @OneToMany(mappedBy = "apartment", cascade = {CascadeType.ALL}, orphanRemoval = true)
     private List<UsedGoods> usedGoods = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "apartment", cascade = {CascadeType.ALL}, orphanRemoval = true)
+    private List<Notices> notices = new ArrayList<>();
+
     @Builder
     public Apartment (String apartName) {
         this.apartName = apartName;
@@ -73,5 +78,11 @@ public class Apartment {
         this.usedGoods.add(usedGoods);
         if (usedGoods.getApartment() != this)
             usedGoods.setApartment(this);
+    }
+
+    public void addNotices(Notices notices) {
+        this.notices.add(notices);
+        if (notices.getApartment() != this)
+            notices.setApartment(this);
     }
 }
