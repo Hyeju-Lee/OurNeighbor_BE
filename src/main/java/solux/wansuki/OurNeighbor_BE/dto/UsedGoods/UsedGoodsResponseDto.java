@@ -15,16 +15,18 @@ public class UsedGoodsResponseDto {
     private String content;
     private List<Long> photoId;
     private String author;
+    private boolean complete;
     private LocalDateTime createdDate;
 
     @Builder
     public UsedGoodsResponseDto (Long id, String title, String content, List<Long> photoId
-            , String author, LocalDateTime createdDate) {
+            , String author, boolean complete, LocalDateTime createdDate) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.photoId = photoId;
         this.author = author;
+        this.complete = complete;
         this.createdDate = createdDate;
     }
 }

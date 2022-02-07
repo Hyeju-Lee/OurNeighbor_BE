@@ -110,6 +110,7 @@ public class ApartmentService {
                     .content(usedGoods.getContent())
                     .author(usedGoods.getMember().getNickName())
                     .photoId(photoIds)
+                    .complete(usedGoods.isComplete())
                     .createdDate(usedGoods.getCreatedDate())
                     .build();
             responseDtos.add(responseDto);

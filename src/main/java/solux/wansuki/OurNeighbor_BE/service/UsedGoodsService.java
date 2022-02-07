@@ -87,9 +87,16 @@ public class UsedGoodsService {
                 .content(usedGoods.getContent())
                 .photoId(photoIds)
                 .author(usedGoods.getMember().getNickName())
+                .complete(usedGoods.isComplete())
                 .createdDate(usedGoods.getCreatedDate())
                 .build();
         return responseDto;
+    }
+
+    @Transactional
+    public void setComplete(Long id) {
+        UsedGoods usedGoods = usedGoodsRepository.findById(id).orElseThrow();
+        usedGoods.setComplete();
     }
 
     public List<UsedGoods> findAll() { return usedGoodsRepository.findAll();}

@@ -33,8 +33,14 @@ public class UsedGoodsController {
         UsedGoodsSaveDto saveDto = UsedGoodsSaveDto.builder()
                 .title(title)
                 .content(content)
+                .complete(false)
                 .build();
         return usedGoodsService.save(saveDto, files, user);
+    }
+
+    @PutMapping("/used-goods/complete/{id}")
+    public void setComplete(@PathVariable Long id) {
+        usedGoodsService.setComplete(id);
     }
 
     @PutMapping("/used-goods/{usedGoods_id}")

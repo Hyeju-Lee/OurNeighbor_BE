@@ -26,6 +26,8 @@ public class UsedGoods extends BaseTimeEntity {
 
     private String content;
 
+    private boolean complete;
+
     @OneToMany(
             mappedBy = "usedGoods",
             cascade = CascadeType.ALL,
@@ -45,14 +47,19 @@ public class UsedGoods extends BaseTimeEntity {
     private Apartment apartment;
 
     @Builder
-    public UsedGoods(String title, String content) {
+    public UsedGoods(String title, String content, boolean complete) {
         this.title = title;
         this.content = content;
+        this.complete = complete;
     }
 
     public void update(String title, String content) {
         this.title = title;
         this.content = content;
+    }
+
+    public void setComplete() {
+        this.complete = true;
     }
 
     public void addPhoto(Photo photo) {
