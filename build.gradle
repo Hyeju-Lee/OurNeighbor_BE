@@ -7,7 +7,7 @@ plugins {
 jar {
 	manifest {
 		attributes(
-				'Main-Class': 'solux.wansuki.OurNeighbor_BE'
+				'Main-Class': 'solux.wansuki.OurNeighbor_BE.OurNeighborBeApplication'
 		)
 	}
 }
