@@ -127,6 +127,7 @@ public class MemberService {
         else if (roles.contains("ROLE_USER"))
             role = "주민";
         MemberResponseDto responseDto = MemberResponseDto.builder()
+                .id(member.getId())
                 .name(member.getName())
                 .email(member.getEmail())
                 .nickName(member.getNickName())

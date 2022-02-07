@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class MemberResponseDto {
+    private Long id;
     private String name;
     private String nickName;
     private String loginId;
@@ -15,8 +16,9 @@ public class MemberResponseDto {
     private String role;
 
     @Builder
-    public MemberResponseDto (String name, String nickName, String loginId,
+    public MemberResponseDto (Long id, String name, String nickName, String loginId,
                               String email, String apartName, String role) {
+        this.id = id;
         this.name = name;
         this.nickName = nickName;
         this.loginId = loginId;

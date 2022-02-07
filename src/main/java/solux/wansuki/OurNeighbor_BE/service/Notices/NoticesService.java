@@ -45,6 +45,7 @@ public class NoticesService {
                 .id(entity.getId())
                 .title(entity.getTitle())
                 .content(entity.getContent())
+                .createdDate(entity.getCreatedDate())
                 .build();
         return responseDto;
     }
@@ -58,6 +59,7 @@ public class NoticesService {
                     .id(notice.getId())
                     .title(notice.getTitle())
                     .content(notice.getContent())
+                    .createdDate(notice.getCreatedDate())
                     .build();
             responseDtos.add(dto);
         }
